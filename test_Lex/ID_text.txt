@@ -1,0 +1,569 @@
+id using
+id namespace
+id std
+;
+id const
+id ll
+id inf
+=
+Num 1
+id e
+Num 15
+;
+int
+id n
+,
+id m
+,
+id s
+,
+id t
+,
+id u
+,
+id v
+,
+id w
+,
+id k
+=
+-
+Num 1
+;
+int
+id qhead
+,
+id qtail
+;
+int
+id head
+[
+id N
+]
+,
+id dis
+[
+id N
+]
+,
+id que
+[
+id N
+]
+,
+id cur
+[
+id N
+]
+;
+id struct
+id node
+{
+int
+id to
+,
+id next
+;
+id ll
+id w
+;
+}
+id e
+[
+id N
+*
+Num 20
+]
+;
+void
+id add
+(
+int
+id u
+,
+int
+id v
+,
+id ll
+id w
+)
+{
+id e
+[
+++
+id k
+]
+id next
+=
+id head
+[
+id u
+]
+;
+id e
+[
+id k
+]
+id to
+=
+id v
+;
+id e
+[
+id k
+]
+id w
+=
+id w
+;
+id head
+[
+id u
+]
+=
+id k
+;
+}
+int
+id bfs
+(
+int
+id x
+)
+{
+id memset
+(
+id dis
+,
+-
+Num 1
+,
+id sizeof
+(
+id dis
+)
+)
+;
+id qhead
+=
+id qtail
+=
+id dis
+[
+id x
+]
+=
+Num 0
+;
+id que
+[
+++
+id qtail
+]
+=
+id x
+;
+while
+(
+id qhead
+<
+id qtail
+)
+{
+int
+id p
+=
+id que
+[
+++
+id qhead
+]
+;
+for
+(
+int
+id i
+=
+id head
+[
+id p
+]
+;
+id i
+!=
+-
+Num 1
+;
+id i
+=
+id e
+[
+id i
+]
+id next
+)
+if
+(
+id dis
+[
+id e
+[
+id i
+]
+id to
+]
+==
+-
+Num 1
+&&
+id e
+[
+id i
+]
+id w
+)
+{
+id dis
+[
+id e
+[
+id i
+]
+id to
+]
+=
+id dis
+[
+id p
+]
++
+Num 1
+;
+id que
+[
+++
+id qtail
+]
+=
+id e
+[
+id i
+]
+id to
+;
+}
+}
+return
+id dis
+[
+id t
+]
+;
+}
+id ll
+id find
+(
+int
+id x
+,
+id ll
+id cap
+)
+{
+id ll
+id inc
+=
+Num 0
+;
+if
+(
+id x
+==
+id t
+||
+!
+id cap
+)
+return
+id cap
+;
+for
+(
+int
+id i
+=
+id cur
+[
+id x
+]
+;
+id i
+!=
+-
+Num 1
+;
+id i
+=
+id e
+[
+id i
+]
+id next
+)
+{
+id cur
+[
+id x
+]
+=
+id i
+;
+if
+(
+id dis
+[
+id e
+[
+id i
+]
+id to
+]
+==
+id dis
+[
+id x
+]
++
+Num 1
+&&
+id e
+[
+id i
+]
+id w
+)
+{
+id ll
+id c
+=
+id find
+(
+id e
+[
+id i
+]
+id to
+,
+id min
+(
+id cap
+-
+id inc
+,
+id e
+[
+id i
+]
+id w
+)
+)
+;
+id e
+[
+id i
+]
+id w
+-
+=
+id c
+;
+id e
+[
+id i
+^
+Num 1
+]
+id w
++
+=
+id c
+;
+id inc
++
+=
+id c
+;
+if
+(
+id inc
+>=
+id cap
+)
+break
+;
+}
+}
+if
+(
+!
+id inc
+)
+id dis
+[
+id x
+]
+=
+-
+Num 1
+;
+return
+id inc
+;
+}
+int
+id main
+(
+)
+{
+id memset
+(
+id head
+,
+-
+Num 1
+,
+id sizeof
+(
+id head
+)
+)
+;
+id scanf
+(
+String %d%d%d%d
+,
+&
+id n
+,
+&
+id m
+,
+&
+id s
+,
+&
+id t
+)
+;
+for
+(
+int
+id i
+=
+Num 1
+;
+id i
+<=
+id m
+;
+id i
+++
+)
+{
+id scanf
+(
+String %d%d%d
+,
+&
+id u
+,
+&
+id v
+,
+&
+id w
+)
+;
+id add
+(
+id u
+,
+id v
+,
+id w
+)
+;
+id add
+(
+id v
+,
+id u
+,
+Num 0
+)
+;
+}
+id ll
+id ans
+=
+Num 0
+;
+while
+(
+id bfs
+(
+id s
+)
+!=
+-
+Num 1
+)
+{
+for
+(
+int
+id i
+=
+Num 1
+;
+id i
+<=
+id n
+;
+id i
+++
+)
+id cur
+[
+id i
+]
+=
+id head
+[
+id i
+]
+;
+id ans
++
+=
+id find
+(
+id s
+,
+id inf
+)
+;
+}
+id printf
+(
+String %lld
+
+,
+id ans
+)
+;
+return
+Num 0
+;
+}
+Error:75row, 0col: Illegal input string!
