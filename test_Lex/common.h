@@ -10,7 +10,7 @@ enum Tag //词法记号
     KW_SECLOUD, //自定义关键字
     ID, //标识符
     NUM, CHAR, STR, //常量：数字 字符 字符串
-    KW_INT, KW_CHAR, KW_VOID, //基本类型
+    KW_INT, KW_CHAR, KW_VOID, KW_EXTERN, //基本类型
     KW_READ, KW_WRITE, //输入输出
     KW_IF, KW_ELSE, KW_SWITCH, KW_CASE, KW_DEFAULT, //条件判断
     KW_FOR, KW_DO, KW_WHILE, //循环

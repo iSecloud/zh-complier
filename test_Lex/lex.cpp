@@ -1,11 +1,12 @@
 #include "lex.h"
+#include "error.h"
 
 Scanner::Scanner(const char *fname)
 {
     file = fopen(fname, "r");
     if(!file) 
     {
-        er.printErrorInfo(make_pair(-1, -1), FILE_OPEN_ERROR);
+        Error::showError(FILE_OPEN_ERROR);
         exit(0);
         //这里需要错误处理
     }
@@ -18,7 +19,7 @@ Scanner::~Scanner()
 {
     if(file)
     {
-        er.printErrorInfo(make_pair(-1, -1), FILE_CLOSE_ERROR);
+        Error::showError(FILE_OPEN_ERROR);
         exit(0);
         //这里需要错误处理
     }
@@ -122,7 +123,7 @@ Token *Lex::getToken()
             char c = -1;
             if(ch == -1 || ch == '\n' || ch == '\'') 
             {
-                er.printErrorInfo(sc.getRowCol(), ILLEGAL_CHARACTER);
+                Error::showError(ILLEGAL_CHARACTER);
                 exit(0);
                 //这里需要错误处理
             }
@@ -131,7 +132,7 @@ Token *Lex::getToken()
                 scan();
                 if(ch == -1 || ch == '\n') 
                 {
-                    er.printErrorInfo(sc.getRowCol(), ILLEGAL_CHARACTER);
+                    Error::showError(ILLEGAL_CHARACTER);
                     exit(0);
                     //这里需要错误处理
                 }
@@ -144,7 +145,7 @@ Token *Lex::getToken()
                 scan();
                 if(ch != '\'')
                 {
-                    er.printErrorInfo(sc.getRowCol(), ILLEGAL_CHARACTER);
+                    Error::showError(ILLEGAL_CHARACTER);
                     exit(0);
                     //这里需要错误处理
                 }
@@ -156,7 +157,7 @@ Token *Lex::getToken()
                 scan();
                 if(ch != '\'')
                 {
-                    er.printErrorInfo(sc.getRowCol(), ILLEGAL_CHARACTER);
+                    Error::showError(ILLEGAL_CHARACTER);
                     exit(0);
                     //这里需要错误处理
                 }
@@ -172,7 +173,7 @@ Token *Lex::getToken()
             {
                 if(ch == '\n' || ch == -1)
                 {
-                    er.printErrorInfo(sc.getRowCol(), ILLEGAL_STRING);
+                    Error::showError(ILLEGAL_STRING);
                     exit(0);
                     //这里需要错误处理
                 }
@@ -181,7 +182,7 @@ Token *Lex::getToken()
                     scan();
                     if(ch == '\n' || ch == -1)
                     {
-                        er.printErrorInfo(sc.getRowCol(), ILLEGAL_STRING);
+                        Error::showError(ILLEGAL_STRING);
                         exit(0);
                         //这里需要错误处理
                     }
@@ -224,7 +225,7 @@ Token *Lex::getToken()
                     //debug();
                     if(ch == -1)
                     {
-                        er.printErrorInfo(sc.getRowCol(), ILLEGAL_COMMENT);
+                        Error::showError(ILLEGAL_COMMENT);
                         exit(0);
                         //这里需要错误处理
                     }

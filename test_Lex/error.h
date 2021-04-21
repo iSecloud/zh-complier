@@ -1,13 +1,15 @@
 #pragma once
 #include "common.h"
+#include "lex.h"
 
 class Error
 {
-    int errNum;
+    static int errNum;
+    static Scanner *sc;
+
 public:
-    Error();
+    Error(Scanner *sc);
     ~Error();
 
-    void printErrorInfo(pair<int, int> pos, enum Err err);
-
+    static void showError(Err errCode);
 };

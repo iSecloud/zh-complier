@@ -1,14 +1,27 @@
 #include "error.h"
+#include "token.h"
+#include "lex.h"
 
 string errinfo[] = {
         "File Open Error!", "Incomplete reading of file data!",
         "Illegal input charactor", "Illegal input string!", "Illegal comment!"
 };
 
-Error::Error() {errNum = 0;}
+Scanner *Error::sc = NULL;
+int Error::errNum = 0;
+
+Error::Error(Scanner *sc1) 
+{
+    errNum = 0;
+    sc = sc1;
+}
+
 Error::~Error() {}
 
-void Error::printErrorInfo(pair<int, int> pos, enum Err err)
+void Error::showError(Err errCode)
 {
-    cout << "Error:" << pos.first << "row, " << pos.second << "col: " << errinfo[(int)err];
+    int posx = sc->getRowCol().first;
+    int posy = sc->getRowCol().second;
+    printf("Error %d: the %d row, the %d col: ", ++errNum, posx, posy);
+    cout << errinfo[(int)errCode] << endl;
 }

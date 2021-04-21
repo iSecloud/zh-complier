@@ -6,7 +6,7 @@ string TagName[] = {
     "Secloud",
     "id",
     "Num", "Char", "String",
-    "int", "char", "void", 
+    "int", "char", "void", "extern", 
     "read", "write",
     "if", "else", "switch", "case", "default",
     "for", "do", "while",
@@ -83,6 +83,7 @@ Keywords::Keywords()
     key["int"] = KW_INT;
     key["char"] = KW_CHAR;
     key["void"] = KW_VOID;
+    key["extern"] = KW_EXTERN;
     key["if"] = KW_IF;
     key["else"] = KW_ELSE;
     key["switch"] = KW_SWITCH;

@@ -57,7 +57,8 @@ int main()
     scanf("%d%d%d%d", &n, &m, &s, &t);
     for(int i = 1; i <= m; i ++)
     {
-        scanf("%d%d%d", &u, &v, &w);
+        scanf("%d%d
+		%d", &u, &v, &w);
         add(u, v, w); add(v, u, 0);
     }
     ll ans = 0;

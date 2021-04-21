@@ -1,6 +1,5 @@
 #pragma once
 #include "token.h"
-#include "error.h"
 
 class Scanner
 {
@@ -8,7 +7,7 @@ class Scanner
     int rowNum, colNum; //当前行号和列号
     int nowPos, lineNum; //当前读的位置与行长度
     //char lastChar, nowChar; //
-    Error er; //错误类
+    //Error &er; //错误类
     char charArray[51212]; //字符数组
     FILE *file; //文件指针
 
@@ -23,7 +22,6 @@ public:
 
 class Lex
 {
-    Error er; //错误类
     Keywords key; //关键字列表
     Scanner &sc; //定义一个扫描器引用
     char ch; // 记录当前读的字符
