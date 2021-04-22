@@ -83,6 +83,7 @@ class Parser
     bool match(int need); //判断是否匹配
     void move(); //得到token
     void recovery(bool real, Err errCode); //错误恢复
+    bool isInFollow(vector<int> a);
     Lex &lexer; 
     Token *lookahead;
 

@@ -4,7 +4,8 @@
 
 string errinfo[] = {
         "File Open Error!", "Incomplete reading of file data!",
-        "Illegal input charactor", "Illegal input string!", "Illegal comment!"
+        "Illegal input charactor", "Illegal input string!", "Illegal comment!",
+        ""
 };
 
 Scanner *Error::sc = NULL;
