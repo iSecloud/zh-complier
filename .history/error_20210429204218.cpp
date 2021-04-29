@@ -10,7 +10,7 @@ string errinfo[] = {
         //语法相关
         "Missing type definition", "Missing variable name", "Missing \')\'",
         "Missing num", "Missing \']\'", "Missing \',\'", "Missing \';\'",
-        "Missing \'{\'", "Missing \'}\'"
+        "Missing \'{\'"
 };
 
 Scanner *Error::sc = NULL;

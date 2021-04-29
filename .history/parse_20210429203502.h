@@ -23,10 +23,10 @@ class Parser
     Var *vardef(Tag t, bool ext);
 
     //函数定义
-    void fundef(); //其实不需要
+    void fundef();
     void funtail(Fun* fun);
     void funbody();
-    void funprogram();
+    void fungrogram();
     void localdef();
     void para(vector<Var*> &paraList);
     Var *paradef(Tag t);

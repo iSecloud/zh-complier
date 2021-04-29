@@ -9,8 +9,7 @@ string errinfo[] = {
         "Illegal input charactor", "Illegal input string", "Illegal comment",
         //语法相关
         "Missing type definition", "Missing variable name", "Missing \')\'",
-        "Missing num", "Missing \']\'", "Missing \',\'", "Missing \';\'",
-        "Missing \'{\'", "Missing \'}\'"
+        "Missing num", "Missing \']\'", "Missing \',\'", "Missing \';\'"
 };
 
 Scanner *Error::sc = NULL;

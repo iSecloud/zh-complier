@@ -29,7 +29,7 @@ bool Parser::match(int need)
 #define FOLLOW vector<int>
 #define EXPR_FIRST INC, DEC, MUL, NNOT, SUB, NOT, AND, LPAREN, NUM, CHAR, STR, ID
 #define TYPE_FIRST KW_INT, KW_CHAR, KW_VOID
-#define STAT_FIRST KW_WHILE, KW_DO, KW_SWITCH, KW_IF, KW_FOR, KW_SECLOUD, KW_READ, \
+#define STAT_FIRST KW_WHILE, KW_DO, KW_SWITCH, KW_CASE, KW_DEFAULT, KW_IF, KW_FOR, KW_SECLOUD, KW_READ, \
 KW_WRITE, KW_RETURN, KW_BREAK, KW_CONTINUE, SEMICON
 
 //是否在follow集里面
@@ -175,7 +175,7 @@ void Parser::varlist(Tag t, bool ext)
         }
         else
         {
-            recovery(isInFollow(FOLLOW{KW_EXTERN, RBRACE, KW_CASE, KW_DEFAULT, TYPE_FIRST, STAT_FIRST, EXPR_FIRST}), SEMICON_LOST);
+            recovery(isInFollow(FOLLOW{KW_EXTERN, RBRACE, TYPE_FIRST, STAT_FIRST, EXPR_FIRST}), SEMICON_LOST);
         }
     }
 }
@@ -280,9 +280,6 @@ void Parser::paralist(vector<Var*> &paraList)
     paralist(paraList);
 }
 
-void Parser::fundef()
-{}
-
 void Parser::funtail(Fun* fun)
 {
     if(match(SEMICON))
@@ -292,32 +289,6 @@ void Parser::funtail(Fun* fun)
     else
     {
         //TODO 添加一个定义函数
-        funbody();
-        //TODO 结束函数定义
+
     }
-}
-
-void Parser::funbody()
-{
-    if(!match(LBRACE)) 
-        recovery(isInFollow(FOLLOW{TYPE_FIRST, STAT_FIRST, RBRACE}), LBRACE_LOST);
-    funprogram();
-    if(!match(RBRACE))
-        recovery(isInFollow(FOLLOW{KW_EXTERN, TYPE_FIRST, STAT_FIRST, EXPR_FIRST}), RBRACE_LOST);
-}
-
-void Parser::funprogram()
-{
-    if(isInFollow(FOLLOW{TYPE_FIRST})) 
-        localdef();
-    else if(isInFollow(FOLLOW{STAT_FIRST, EXPR_FIRST}))
-        statement();
-    funprogram();
-}
-
-void Parser::localdef()
-{
-    Tag t = type();
-    vardef(t, false); //TODO 这里需要添加变量
-    varlist(t, false);
 }

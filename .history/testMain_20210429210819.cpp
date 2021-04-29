@@ -16,7 +16,7 @@ bool isInFollow(vector<int> a)
 
 int main()
 {
-    int a = isInFollow(vector<int>{2, 4, 5, 7});
+    int a = isInFollow(vector<int>{2, 3, 4, 5, 7});
     printf("%d", a);
     return 0;
 }

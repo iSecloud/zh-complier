@@ -33,7 +33,7 @@ bool Parser::match(int need)
 KW_WRITE, KW_RETURN, KW_BREAK, KW_CONTINUE, SEMICON
 
 //是否在follow集里面
-bool Parser::isInFollow(vector<int> a)
+bool Parser::isInFollow(vector<int> &a)
 {
     if(find(a.begin(), a.end(), lookahead->tag) != a.end()) 
         return true;

@@ -280,9 +280,6 @@ void Parser::paralist(vector<Var*> &paraList)
     paralist(paraList);
 }
 
-void Parser::fundef()
-{}
-
 void Parser::funtail(Fun* fun)
 {
     if(match(SEMICON))
@@ -320,4 +317,5 @@ void Parser::localdef()
     Tag t = type();
     vardef(t, false); //TODO 这里需要添加变量
     varlist(t, false);
+
 }
