@@ -7,6 +7,8 @@ enum Tag{
 
 int main()
 {
-    int a[5 + 2 + 7];
+    int a = 1, b;
+    a ? b = 2 : b = 3;
+    printf("%d", b);
     return 0;
 }

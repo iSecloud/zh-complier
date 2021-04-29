@@ -15,12 +15,12 @@ class Parser
     //总定义
     void def(Tag t, bool ext); 
     void deftail(Tag t, bool ext, string name, bool ptr);
-    Var *init(Tag t, bool ext, string name, bool ptr);
+    Var *init();
 
     //变量定义
-    Var *norvardef(Tag t, bool ext, string name, bool ptr);
-    void varlist(Tag t, bool ext);
-    Var *vardef(Tag t, bool ext);
+    Var *norvardef();
+    void varlist();
+    Var *vardef();
 
     //函数定义
     void fundef();

@@ -13,14 +13,14 @@ class Parser
     Tag type();
 
     //总定义
-    void def(Tag t, bool ext); 
-    void deftail(Tag t, bool ext, string name, bool ptr);
-    Var *init(Tag t, bool ext, string name, bool ptr);
+    void def(); 
+    void deftail();
+    Var *init();
 
     //变量定义
-    Var *norvardef(Tag t, bool ext, string name, bool ptr);
-    void varlist(Tag t, bool ext);
-    Var *vardef(Tag t, bool ext);
+    Var *norvardef();
+    void varlist();
+    Var *vardef();
 
     //函数定义
     void fundef();
@@ -83,7 +83,7 @@ class Parser
     bool match(int need); //判断是否匹配
     void move(); //得到token
     void recovery(bool real, Err errCode); //错误恢复
-    bool isInFollow(vector<int> a); 
+    bool isInFollow(vector<int> a);
     Lex &lexer; 
     Token *lookahead;
 

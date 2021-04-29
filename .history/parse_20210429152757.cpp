@@ -27,7 +27,6 @@ bool Parser::match(int need)
 }
 
 #define FOLLOW vector<int>
-#define EXPR_FIRST
 #define TYPE_FIRST KW_INT, KW_CHAR, KW_VOID
 #define STAT_FIRST KW_WHILE, KW_DO, KW_SWITCH, KW_CASE, KW_DEFAULT, KW_IF, KW_ELSE, KW_FOR, KW_SECLOUD, KW_READ, KW_WRITE
 
@@ -157,19 +156,6 @@ void Parser::varlist(Tag t, bool ext)
         vardef(t, ext); // TODO: 这里需要新建一个变量
         varlist(t, ext);
     }
-    else
-    {
-        if(isInFollow(FOLLOW{ID, MUL}))
-        {
-            recovery(true, COMMA_LOST);
-            vardef(t, ext); // TODO: 这里需要新建一个变量
-            varlist(t, ext);
-        }
-        else
-        {
-            recovery()
-        }
-    }
 }
 
 Var* Parser::vardef(Tag t, bool ext)
@@ -187,14 +173,8 @@ Var* Parser::vardef(Tag t, bool ext)
     {
         if(!mul)
         {
-            recovery(isInFollow(FOLLOW{LBRACKET, ASSIGN, COMMA, SEMICON}), IDNAME_LOST);
+            recovery(isInFollow(FOLLOW{LBRACKET, ASSIGN}), IDNAME_LOST);
             return norvardef(t, ext, idName, mul);
-        }
-        else
-        {
-            recovery(isInFollow(FOLLOW{ASSIGN, COMMA, SEMICON}), IDNAME_LOST);
-            return init(t, ext, idName, mul);
         }
     }
 }
-

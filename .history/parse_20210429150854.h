@@ -20,7 +20,7 @@ class Parser
     //变量定义
     Var *norvardef(Tag t, bool ext, string name, bool ptr);
     void varlist(Tag t, bool ext);
-    Var *vardef(Tag t, bool ext);
+    Var *vardef();
 
     //函数定义
     void fundef();

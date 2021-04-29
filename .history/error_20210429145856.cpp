@@ -7,9 +7,8 @@ string errinfo[] = {
         "File Open Error", "Incomplete reading of file data",
         //字符相关
         "Illegal input charactor", "Illegal input string", "Illegal comment",
-        //语法相关
-        "Missing type definition", "Missing variable name", "Missing \')\'",
-        "Missing num", "Missing \']\'"
+        //与法相关
+        "Missing type definition", "Missing variable name", "Missing )"
 };
 
 Scanner *Error::sc = NULL;

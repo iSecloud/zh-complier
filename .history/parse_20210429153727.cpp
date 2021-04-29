@@ -27,7 +27,7 @@ bool Parser::match(int need)
 }
 
 #define FOLLOW vector<int>
-#define EXPR_FIRST
+#define EXPR
 #define TYPE_FIRST KW_INT, KW_CHAR, KW_VOID
 #define STAT_FIRST KW_WHILE, KW_DO, KW_SWITCH, KW_CASE, KW_DEFAULT, KW_IF, KW_ELSE, KW_FOR, KW_SECLOUD, KW_READ, KW_WRITE
 

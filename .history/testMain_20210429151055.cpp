@@ -7,6 +7,6 @@ enum Tag{
 
 int main()
 {
-    int a[5 + 2 + 7];
+    int a[100;
     return 0;
 }

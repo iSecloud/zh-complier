@@ -7,6 +7,7 @@ enum Tag{
 
 int main()
 {
-    int a[5 + 2 + 7];
+    vector<int> a = vector<int>{ID, MUL, XXOO};
+    for(auto i: a) printf("%d ", i);
     return 0;
 }
