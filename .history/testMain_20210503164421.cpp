@@ -2,7 +2,7 @@
 #define debug system("pause")
 using namespace std;
 
-extern int calc(int a, int b);
+int calc(int a, int b);
 
 enum Tag
 {
@@ -22,16 +22,11 @@ int calc(int a, int b)
     return a + b;
 }
 
-int calc(int a, int b, int c)
-{
-    return a + b + c;
-}
-
 int main()
 {
     int c = 5;
     int* d = &c;
     int* &b = d;
-    printf("%d %d %d", b, c, calc(*b, c));
+    printf("%d %d %d", b, c, d);
     return 0;
 }

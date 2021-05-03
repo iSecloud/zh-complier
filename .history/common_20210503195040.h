@@ -3,7 +3,6 @@
 #include <map>
 #include <iostream>
 #include <vector>
-#include <unordered_map>
 using namespace std;
 
 enum Tag //词法记号
@@ -50,9 +49,5 @@ enum Err //错误记号
     RBRACE_LOST,
     WHILE_LOST,
     COLON_LOST,
-    LITERAL_LOST, 
-
-    //语义相关
-    ARRAY_LEN_ERR,
-    TYPE_DEF_ERR
+    LITERAL_LOST
 };

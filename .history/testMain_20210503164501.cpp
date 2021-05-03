@@ -22,11 +22,6 @@ int calc(int a, int b)
     return a + b;
 }
 
-int calc(int a, int b, int c)
-{
-    return a + b + c;
-}
-
 int main()
 {
     int c = 5;

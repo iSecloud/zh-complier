@@ -27,7 +27,7 @@ class Var
     int offset; //变量的偏移量
 
 private:
-    //变量属性的一些定义(私有函数)
+    //变量属性的一些定义
     void setExtern(bool ext);
     void setType(Tag t);
     void setPtr(bool ptr);

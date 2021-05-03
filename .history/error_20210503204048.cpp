@@ -28,8 +28,7 @@ string errinfo[] = {
         "Missing literal",
 
         //语义相关
-        "Illegal array length",
-        "Illegal type definition"
+        "Illegal array length"
 };
 
 Scanner *Error::sc = NULL;

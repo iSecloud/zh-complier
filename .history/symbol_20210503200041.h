@@ -20,30 +20,11 @@ class Var
     int intVal; //int常量初值
     char charVal; //char常量初值
     string strVal; //str常量初值
-    string ptrVal; //字符指针初值? 这是什么玩意儿?
+    string ptrVal; //字符指针初值?
     Var* ptr; //指针变量
 
     int size; //变量大小
     int offset; //变量的偏移量
-
-private:
-    //变量属性的一些定义(私有函数)
-    void setExtern(bool ext);
-    void setType(Tag t);
-    void setPtr(bool ptr);
-    void setName(string name);
-    void setArray(int len);
-
-public:
-    //构造函数
-    Var(vector<int> &scp, bool ext, Tag t, bool ptr, string name, Var* init = NULL); //变量初始化
-    Var(vector<int> &scp, bool ext, Tag t, string name, int len); //数组初始化
-    Var(Token* tk); //常量初始化
-    //TODO 整数变量 临时变量 拷贝变量
-    Var();
-    ~Var();
-
-    void clear(); //定义初始化
 
 };
 

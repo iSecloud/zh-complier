@@ -125,7 +125,7 @@ void Parser::DefTail(Tag t, bool ext, string name, bool ptr)
     if(match(LPAREN)) //函数
     {
         //TODO: 记录函数路径, 进入函数
-        //Tag t = Type();
+        Tag t = Type();
         vector<Var*> paraList; //参数列表
         Para(paraList);
         if(!match(RPAREN)) 

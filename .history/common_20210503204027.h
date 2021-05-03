@@ -53,6 +53,5 @@ enum Err //错误记号
     LITERAL_LOST, 
 
     //语义相关
-    ARRAY_LEN_ERR,
-    TYPE_DEF_ERR
+    ARRAY_LEN_ERR
 };

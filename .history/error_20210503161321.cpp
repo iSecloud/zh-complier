@@ -6,12 +6,10 @@ string errinfo[] = {
         // 文件相关
         "File Open Error", 
         "Incomplete reading of file data",
-
         //字符相关
         "Illegal input charactor", 
         "Illegal input string", 
         "Illegal comment",
-
         //语法相关
         "Missing type definition", 
         "Missing variable name", 
@@ -25,11 +23,7 @@ string errinfo[] = {
         "Missing \'}\'",
         "Missing keyword \'while\'",
         "Missing \':\'",
-        "Missing literal",
-
-        //语义相关
-        "Illegal array length",
-        "Illegal type definition"
+        "Missing literal"
 };
 
 Scanner *Error::sc = NULL;
