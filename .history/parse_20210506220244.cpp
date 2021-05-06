@@ -29,14 +29,14 @@ Tag Parser::GetTag()
 
 void Parser::Analysis()
 {
-    move(); //printf("+++++++++++++++"); system("pause");
+    move(); printf("+++++++++++++++"); system("pause");
     Program();
 }
 
 void Parser::move()
 {
     lookahead = lexer.getToken();   
-    //cout << lookahead->toString() << endl; system("pause");
+    cout << lookahead->toString() << endl; system("pause");
 }
 
 bool Parser::match(int need)
@@ -294,15 +294,15 @@ void Parser::FunDef()
 
 void Parser::FunTail(Fun* fun)
 {
-    //printf("funck!!!");
+    printf("funck!!!");
     if(match(SEMICON))
     {
-        //printf("-----------------");
+        printf("-----------------");
         symtab.decFun(fun);
     }
     else
     {
-        //printf("-----------------+++++++++++");
+        printf("-----------------+++++++++++");
         symtab.defFun(fun);
         FunBody();
         symtab.endDefFun();  

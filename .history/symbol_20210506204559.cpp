@@ -81,7 +81,7 @@ Var::Var(vector<int> &scp, bool ext, Tag t, bool ptr, string name, Var* init)
     setExtern(ext);
     setType(t);
     setPtr(ptr);
-    //cout << name << endl;
+    cout << name << endl;
     setName(name);
     initVal = init;
 }

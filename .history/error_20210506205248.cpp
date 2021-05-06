@@ -59,7 +59,6 @@ void Error::showError(Err errCode)
     int posx = sc->getRowCol().first;
     int posy = sc->getRowCol().second;
     printf("Error %d: the %d row, the %d col: ", ++errNum, posx, posy);
-    
     cout << errinfo[(int)errCode] << endl;
     system("pause");
 }

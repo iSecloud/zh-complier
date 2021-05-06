@@ -95,6 +95,7 @@ Token *Lex::getToken()
         {
             //debug();
             delete token; //释放空间
+            token = NULL;
         }
         //scan();
         //忽略空白符
