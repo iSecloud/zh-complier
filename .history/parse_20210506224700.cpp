@@ -138,7 +138,7 @@ void Parser::DefTail(Tag t, bool ext, string name, bool ptr)
         if(!match(RPAREN)) 
             recovery(isInFollow(FOLLOW{SEMICON, LBRACE}), RPAREN_LOST);
         Fun* fun = new Fun(ext, t, name, paraList);
-        //cout << lookahead->toString() << endl;
+        cout << lookahead->toString() << endl;
         FunTail(fun);
         symtab.leave();
     }

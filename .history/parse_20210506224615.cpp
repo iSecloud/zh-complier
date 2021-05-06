@@ -41,7 +41,11 @@ void Parser::move()
 
 bool Parser::match(int need)
 {
-    if(lookahead->tag == END) exit(0);
+    if(lookahead->tag == END)
+    {
+        printf("FUCK!");
+        exit(0);
+    }
     if(lookahead->tag == need)
     {
         move();
@@ -138,7 +142,7 @@ void Parser::DefTail(Tag t, bool ext, string name, bool ptr)
         if(!match(RPAREN)) 
             recovery(isInFollow(FOLLOW{SEMICON, LBRACE}), RPAREN_LOST);
         Fun* fun = new Fun(ext, t, name, paraList);
-        //cout << lookahead->toString() << endl;
+        cout << lookahead->toString() << endl;
         FunTail(fun);
         symtab.leave();
     }

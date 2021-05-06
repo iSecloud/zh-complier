@@ -41,7 +41,11 @@ void Parser::move()
 
 bool Parser::match(int need)
 {
-    if(lookahead->tag == END) exit(0);
+    if(lookahead->tag == END)
+    {
+        printf("FUCK!");
+        exit(0);
+    }
     if(lookahead->tag == need)
     {
         move();
@@ -69,6 +73,7 @@ void Parser::recovery(bool real, Err errCode)
 void Parser::Program()
 {
     Segment();
+    printf("continue!\n"); 
     Program();
 }
 
@@ -138,7 +143,7 @@ void Parser::DefTail(Tag t, bool ext, string name, bool ptr)
         if(!match(RPAREN)) 
             recovery(isInFollow(FOLLOW{SEMICON, LBRACE}), RPAREN_LOST);
         Fun* fun = new Fun(ext, t, name, paraList);
-        //cout << lookahead->toString() << endl;
+        cout << lookahead->toString() << endl;
         FunTail(fun);
         symtab.leave();
     }
@@ -321,15 +326,10 @@ void Parser::FunBody()
 void Parser::FunProgram()
 {
     if(isInFollow(FOLLOW{TYPE_FIRST})) 
-    {
         LocalDef();
-        FunProgram();
-    }
     else if(isInFollow(FOLLOW{STAT_FIRST, EXPR_FIRST}))
-    {
         Statement();
-        FunProgram();
-    }
+    FunProgram();
 }
 
 void Parser::LocalDef()

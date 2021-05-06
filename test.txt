@@ -1,4 +1,10 @@
-int main()
-{
+int function(int a, int b, int c)
+{}
 
-}
+int x, *y, z;
+char cc;
+int function(int a, int b)
+{}
+
+int main()
+{}
