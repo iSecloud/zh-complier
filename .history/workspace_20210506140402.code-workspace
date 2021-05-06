@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\cit-arm"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.vue": "html",
+			"*.tcc": "cpp",
+			"type_traits": "cpp",
+			"deque": "cpp",
+			"string": "cpp",
+			"vector": "cpp",
+			"unordered_map": "cpp"
+		}
+	}
+}

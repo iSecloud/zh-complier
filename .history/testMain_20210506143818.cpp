@@ -18,7 +18,5 @@ int main()
     SymTab symtab;
     Parser parser(lexer, symtab);
     parser.Analysis();
-    printf("%d ", symtab.getVarList().size()); debug;
-    for(auto i: symtab.getVarList()) cout << i << endl;
     return 0;
 }

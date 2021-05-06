@@ -39,6 +39,6 @@ public:
 
     //外部接口
     vector<int> &getScope();
-    vector<string> &getVarList();
-    vector<string> &getFunList();
+    vector<string> getVarList();
+    vector<string> getFunList();
 };

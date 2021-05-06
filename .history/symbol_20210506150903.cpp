@@ -67,12 +67,6 @@ void Var::clear()
     size = offset = 0;
 }
 
-Var::Var()
-{}
-
-Var::~Var()
-{}
-
 // 变量 指针的构造函数
 Var::Var(vector<int> &scp, bool ext, Tag t, bool ptr, string name, Var* init)
 {

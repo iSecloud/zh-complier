@@ -17,6 +17,8 @@ class SymTab
     Fun* curFun; //当前函数
     int scopeNum; //全局路径编号
     vector<int> scopePath; //当前路径
+    vector<string> getVarList();
+    vector<string> getFunList();
 
 public:
 
@@ -39,6 +41,4 @@ public:
 
     //外部接口
     vector<int> &getScope();
-    vector<string> &getVarList();
-    vector<string> &getFunList();
 };

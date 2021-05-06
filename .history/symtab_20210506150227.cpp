@@ -1,11 +1,5 @@
 #include "symtab.h"
 
-SymTab::SymTab()
-{}
-
-SymTab::~SymTab()
-{}
-
 void SymTab::enter()
 {
     scopeNum ++;
@@ -75,7 +69,7 @@ Var* SymTab::getVar(string name)
         }
     }
     if(!ans) Error::showError(VAR_DEF_NONE);
-    return ans; 
+    return ans;
 }
 
 void SymTab::decFun(Fun* fun)
@@ -158,14 +152,4 @@ Fun* SymTab::getFun(string name, vector<Var* >&paraList)
 vector<int>& SymTab::getScope()
 {
     return scopePath;
-}
-
-vector<string>& SymTab::getVarList()
-{
-    return varList;
-}
-
-vector<string>& SymTab::getFunList()
-{
-    return funList;
 }

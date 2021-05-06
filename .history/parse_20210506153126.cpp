@@ -5,15 +5,6 @@
 #include "symbol.h"
 #include "error.h"
 
-#define FOLLOW vector<int>
-#define LALO_FIRST ASSIGN, OOR, AAND, OR, XOR, AND, GT, GE, LT, LE, EQU, NEQU, ADD, SUB, MUL, \
-MOD, DIV, INC, DEC
-#define RALO_FIRST OOR, AAND, OR, XOR, AND, GT, GE, LT, LE, EQU, NEQU, ADD, SUB, MUL, DIV, MOD
-#define EXPR_FIRST INC, DEC, MUL, NNOT, SUB, NOT, AND, LPAREN, NUM, CHAR, STR, ID
-#define TYPE_FIRST KW_INT, KW_CHAR, KW_VOID
-#define STAT_FIRST KW_WHILE, KW_DO, KW_SWITCH, KW_IF, KW_FOR, KW_SECLOUD, KW_READ, \
-KW_WRITE, KW_RETURN, KW_BREAK, KW_CONTINUE, SEMICON
-
 Parser::Parser(Lex &lexer1, SymTab &symtab1): lexer(lexer1), symtab(symtab1) 
 {}
 
@@ -48,9 +39,20 @@ bool Parser::match(int need)
     return false;
 }
 
+#define FOLLOW vector<int>
+#define LALO_FIRST ASSIGN, OOR, AAND, OR, XOR, AND, GT, GE, LT, LE, EQU, NEQU, ADD, SUB, MUL, \
+MOD, DIV, INC, DEC
+#define RALO_FIRST OOR, AAND, OR, XOR, AND, GT, GE, LT, LE, EQU, NEQU, ADD, SUB, MUL, DIV, MOD
+#define EXPR_FIRST INC, DEC, MUL, NNOT, SUB, NOT, AND, LPAREN, NUM, CHAR, STR, ID
+#define TYPE_FIRST KW_INT, KW_CHAR, KW_VOID
+#define STAT_FIRST KW_WHILE, KW_DO, KW_SWITCH, KW_IF, KW_FOR, KW_SECLOUD, KW_READ, \
+KW_WRITE, KW_RETURN, KW_BREAK, KW_CONTINUE, SEMICON
+
 //是否在follow集里面
 bool Parser::isInFollow(vector<int> a)
 {
+    for(auto i: a) printf("%d ", i); system("pause");
+    printf("%d ", lookahead->tag); system("pause");
     if(find(a.begin(), a.end(), lookahead->tag) != a.end()) 
         return true;
     else 

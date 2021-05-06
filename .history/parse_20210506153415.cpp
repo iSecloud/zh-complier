@@ -51,6 +51,8 @@ bool Parser::match(int need)
 //是否在follow集里面
 bool Parser::isInFollow(vector<int> a)
 {
+    //for(auto i: a) printf("%d ", i); system("pause");
+    //printf("%d ", lookahead->tag); system("pause");
     if(find(a.begin(), a.end(), lookahead->tag) != a.end()) 
         return true;
     else 

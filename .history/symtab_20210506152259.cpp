@@ -160,12 +160,12 @@ vector<int>& SymTab::getScope()
     return scopePath;
 }
 
-vector<string>& SymTab::getVarList()
+vector<int>& SymTab::getVarList()
 {
     return varList;
 }
 
-vector<string>& SymTab::getFunList()
+vector<int>& SymTab::getFunList()
 {
     return funList;
 }

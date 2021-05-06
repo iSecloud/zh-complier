@@ -1,7 +1,6 @@
 #pragma once
 #include "common.h"
 #include "token.h"
-#include "error.h"
 
 // 变量定义
 class Var
