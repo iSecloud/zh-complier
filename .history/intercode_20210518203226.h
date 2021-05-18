@@ -13,11 +13,12 @@ class Quaternion //四元式定义
     void init(); //初始化 maybe需要
 
 public:
-    Quaternion(); //特殊 产生标签
+    Quaternion();
     ~Quaternion();
     Quaternion(Operator op, Var* result, Var* arg1, Var* arg2 = NULL); //一般的运算指令
     Quaternion(Operator op, Fun* fun, Var* result = NULL); //函数相关指令
     Quaternion(Operator op, Var* arg1 = NULL); //单参或无参指令
+    Quaternion(Operator op = OP_LABEL); //特殊 产生标签
     Quaternion(Operator op, Quaternion* target, Var* arg1 = NULL, Var* arg2 = NULL); //跳转指令
 };
 

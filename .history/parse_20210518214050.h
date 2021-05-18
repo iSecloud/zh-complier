@@ -94,7 +94,7 @@ class Parser
     GenIR &ir;
 
 public:
-    Parser(Lex &lexer1, SymTab &symtab1, GenIR &ir1);
+    Parser(Lex &lexer1, SymTab &symtab1);
     ~Parser();
 
     void Analysis();

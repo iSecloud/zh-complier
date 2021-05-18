@@ -65,7 +65,9 @@ enum Err //错误记号
     FUN_EXT_ERR, //声明的函数不能被定义
     FUN_DEF_MUL,
     FUN_CALL_ERR,
-    FUN_UN_DEC
+    FUN_UN_DEC,
+    RETURN_ERR
+
 };
 
 enum Operator{

@@ -33,17 +33,15 @@ public:
     //变量表和函数表管理
     void addVar(Var* var);
     void addStr(Var* &var);
-    void addCode(Quaternion *code); //添加一个中间代码
+    void addCode(Quaternion *code);
     Var* getVar(string name);
-    void decFun(Fun* fun); //声明一个函数
-    void defFun(Fun* fun); //定义一个函数
-    void endDefFun(); //结束定义
-    Fun* getFun(string name, vector<Var* >&paraList); //得到函数
+    void decFun(Fun* fun);
+    void defFun(Fun* fun);
+    void endDefFun();
+    Fun* getFun(string name, vector<Var* >&paraList);
 
     //外部接口
     vector<int> &getScope();
     vector<string> &getVarList();
     vector<string> &getFunList();
-    void setIR(GenIR *ir);
-    Fun* getCurFun();
 };

@@ -14,8 +14,7 @@ MOD, DIV, INC, DEC
 #define STAT_FIRST KW_WHILE, KW_DO, KW_SWITCH, KW_IF, KW_FOR, KW_SECLOUD, KW_READ, \
 KW_WRITE, KW_RETURN, KW_BREAK, KW_CONTINUE, SEMICON
 
-Parser::Parser(Lex &lexer1, SymTab &symtab1, GenIR &ir1): 
-lexer(lexer1), symtab(symtab1) , ir(ir1)
+Parser::Parser(Lex &lexer1, SymTab &symtab1): lexer(lexer1), symtab(symtab1) , ir(ir1)
 {}
 
 Parser::~Parser() 
@@ -30,7 +29,7 @@ Tag Parser::GetTag()
 
 void Parser::Analysis()
 {
-    move();
+    move(); //printf("+++++++++++++++"); system("pause");
     Program();
 }
 
@@ -375,7 +374,7 @@ void Parser::Statement()
     else if(t == KW_RETURN)
     {
         move();
-        ir.genFunReturn(expr());
+        //TODO 产生return语句，注意可能有表达式
         if(!match(SEMICON))
             recovery(isInFollow(FOLLOW{KW_EXTERN, RBRACE, KW_CASE, KW_DEFAULT, TYPE_FIRST, STAT_FIRST, EXPR_FIRST}), SEMICON_LOST);
     }

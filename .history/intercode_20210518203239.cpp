@@ -11,11 +11,7 @@ void Quaternion::init()
 }
 
 Quaternion::Quaternion()
-{
-    init();
-    this->op = OP_LABEL;
-    //TODO 产生label    
-}
+{}
 
 Quaternion::~Quaternion()
 {}
@@ -42,6 +38,13 @@ Quaternion::Quaternion(Operator op, Var* arg1) //单参或无参指令
     init();
     this->op = op;
     this->arg1 = arg1;
+}
+
+Quaternion::Quaternion(Operator op = OP_LABEL) //特殊 产生标签
+{
+    init();
+    this->op = op;
+    //TODO 产生label
 }
 
 Quaternion::Quaternion(Operator op, Quaternion* target, Var* arg1, Var* arg2) //跳转指令

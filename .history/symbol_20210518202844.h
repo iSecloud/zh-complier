@@ -48,13 +48,12 @@ public:
     void clear(); //定义初始化
 
     //外部接口
-    void setOffset(int off);
     string getName();
     vector<int > &getScope();
     string getStr();
     Tag getType();
+    void setOffset(int off);
     int getSize();
-    bool isBaseType();
 };
 
 // 函数定义

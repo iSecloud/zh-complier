@@ -183,10 +183,5 @@ vector<string>& SymTab::getFunList()
 
 void SymTab::setIR(GenIR *ir)
 {
-    this->ir = ir;
-}
-
-Fun* SymTab::getCurFun()
-{
-    return curFun;
+    this.ir = ir;
 }

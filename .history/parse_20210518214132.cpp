@@ -375,7 +375,7 @@ void Parser::Statement()
     else if(t == KW_RETURN)
     {
         move();
-        ir.genFunReturn(expr());
+        //TODO 产生return语句，注意可能有表达式
         if(!match(SEMICON))
             recovery(isInFollow(FOLLOW{KW_EXTERN, RBRACE, KW_CASE, KW_DEFAULT, TYPE_FIRST, STAT_FIRST, EXPR_FIRST}), SEMICON_LOST);
     }

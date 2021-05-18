@@ -59,7 +59,7 @@ int main()
     {
         scanf("%d%d
 		%d", &u, &v, &w);
-        add(u, v, w); add(v, u, 0);
+        add(u, v, w); add(v, u, 0)
     }
     ll ans = 0;
     while(bfs(s) != -1)

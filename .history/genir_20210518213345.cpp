@@ -35,17 +35,9 @@ void GenIR::genFunReturn(Var *ret)
         Error::showError(FUN_RET_ERR);
         return;
     }
-    if(ret->isBaseType() && curfun->getType() == KW_VOID)
+    if(ret->isBaseType() && curfun->getType == KW_VOID)
     {
         Error::showError(FUN_RET_ERR);
         return;
-    }
-    Quaternion *rePoint = curfun->getReturnPoint();
-    if(ret->getType() == KW_VOID)
-        symtab.addCode(new Quaternion(OP_RET, rePoint));
-    else
-    {
-        //TODO 如果ret是一个指针类型，则需要取值
-        symtab.addCode(new Quaternion(OP_RETX, rePoint, ret));
     }
 }

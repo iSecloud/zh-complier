@@ -1,12 +1,6 @@
 #include "symbol.h"
 
 // ================================变量==============================
-bool Var::isBaseType()
-{
-    if(isPtr || isArray) return false;
-    return true;
-}
-
 void Var::setOffset(int off)
 {
     offset = off;
@@ -261,7 +255,7 @@ void Fun::setReturnPoint(Quaternion *point)
     returnPoint = point;
 }
 
-Quaternion* Fun::getReturnPoint()
+Quaternion Fun::getReturnPoint()
 {
     return returnPoint;
 }

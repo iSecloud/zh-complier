@@ -48,13 +48,12 @@ public:
     void clear(); //定义初始化
 
     //外部接口
-    void setOffset(int off);
     string getName();
     vector<int > &getScope();
     string getStr();
     Tag getType();
+    void setOffset(int off);
     int getSize();
-    bool isBaseType();
 };
 
 // 函数定义
@@ -68,7 +67,7 @@ class Fun
     int curEsp; //当前栈帧位置，即当前栈帧的大小
     vector<int > scopeEsp; //作用域栈帧位置，记录当前作用域的大小
     InterCode incode; //中间代码
-    Quaternion *returnPoint; //跳转返回点
+    Quaternion returnPoint; //跳转返回点
 
 public:
     //构造函数
@@ -86,7 +85,7 @@ public:
 
     //中间代码相关
     void addCode(Quaternion *code);
-    void setReturnPoint(Quaternion *point);
+    void setReturnPoint(Quaternion *code);
     Quaternion* getReturnPoint();
 
     //外部接口
