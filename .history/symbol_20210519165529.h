@@ -39,8 +39,6 @@ private:
 
 public:
     //构造函数
-    Var(vector<int> &scp, Var* var);
-    Var(vector<int> &scp, Tag t, bool ptr); //临时变量
     Var(vector<int> &scp, bool ext, Tag t, bool ptr, string name, Var* init = NULL); //变量初始化
     Var(vector<int> &scp, bool ext, Tag t, string name, int len); //数组初始化
     Var(Token *tk); //常量初始化
@@ -59,8 +57,6 @@ public:
     Tag getType();
     int getSize();
     bool isBaseType();
-    bool getLeft();
-    Var* getPointer();
 };
 
 // 函数定义

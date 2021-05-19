@@ -12,7 +12,7 @@ public:
     GenIR(SymTab &symtab1);
     ~GenIR();
 
-    bool typeCheck(Var* lval, Var* rval); //类型匹配
+    bool tyepCheck(Var* lval, Var* rval); //类型匹配
 
     void genFunHead(Fun* fun); //产生函数入口
     void genFunTail(Fun* fun); //产生函数出口

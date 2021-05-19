@@ -136,7 +136,7 @@ Var::Var(vector<int> &scp, Var* var)
     scopePath = scp;
     setType(var->getType());
     setPtr(var->isPtr || var->isArray); //设置指针
-    isLeft = false; //不能作为左值
+    setLeft(false);
     setName("");
 }
 

@@ -37,11 +37,6 @@ vector<int >& Var::getScope()
     return scopePath;
 }
 
-bool Var::getLeft()
-{
-    return isLeft;
-}
-
 string Var::getStr()
 {
     return strVal;
@@ -50,11 +45,6 @@ string Var::getStr()
 Tag Var::getType()
 {
     return type;
-}
-
-Var* Var:: getPointer()
-{
-    return ptr;
 }
 
 void Var::setExtern(bool ext)
@@ -128,28 +118,6 @@ Var::Var()
 
 Var::~Var()
 {}
-
-//拷贝变量
-Var::Var(vector<int> &scp, Var* var)
-{
-    clear();
-    scopePath = scp;
-    setType(var->getType());
-    setPtr(var->isPtr || var->isArray); //设置指针
-    isLeft = false; //不能作为左值
-    setName("");
-}
-
-//临时变量
-Var::Var(vector<int> &scp, Tag t, bool ptr)
-{
-    clear();
-    scopePath = scp;
-    setType(t);
-    setPtr(ptr);
-    setName("");
-    isLeft = false; //默认不能作为左值
-}
 
 // 变量 指针的构造函数
 Var::Var(vector<int> &scp, bool ext, Tag t, bool ptr, string name, Var* init)

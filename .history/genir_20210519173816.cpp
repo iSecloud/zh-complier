@@ -12,16 +12,6 @@ GenIR::GenIR(SymTab &symtab1): symtab(symtab1)
 GenIR::~GenIR()
 {}
 
-bool GenIR::typeCheck(Var* lval, Var* rval)
-{
-    //TODO 需要判断lavl和rval是否为空吗？
-    if(lval->isBaseType() && rval->isBaseType()) 
-        return true;
-    if(!lval->isBaseType() && !rval->isBaseType())
-        return lval->getType() == rval->getType();
-    return false;
-}
-
 void GenIR::genFunHead(Fun* fun)
 {
     fun->enterScope();  
@@ -105,22 +95,3 @@ Var* GenIR::genVal(Var* var)
         symtab.addCode(new Quaternion(OP_ASSIGN, tmp, var)); //普通赋值
 }
 
-Var* GenIR::genAssign(Var* lval, Var* rval)
-{
-    if(!lval->getLeft())
-    {
-        Error::showError(NOT_LVAL_ERR);
-        return lval;
-    }
-    if(!typeCheck(lval, rval))
-    {
-        Error::showError(TYPE_MATCH_ERR);
-        return lval;
-    }
-    if(rval->getPointer() != NULL) rval = genVal(rval);
-    if(lval->getPointer() != NULL)
-        symtab.addCode(new Quaternion(OP_SET, rval, lval->getPointer()));
-    else 
-        symtab.addCode(new Quaternion(OP_ASSIGN, lval, rval));
-    return lval;
-}

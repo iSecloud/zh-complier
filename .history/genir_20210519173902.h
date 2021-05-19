@@ -12,14 +12,12 @@ public:
     GenIR(SymTab &symtab1);
     ~GenIR();
 
-    bool typeCheck(Var* lval, Var* rval); //类型匹配
-
     void genFunHead(Fun* fun); //产生函数入口
     void genFunTail(Fun* fun); //产生函数出口
     void genFunReturn(Var* ret); //产生return语句
 
     Var* genPtr(Var* var); //指针运算*p
     Var* genAddress(Var* var); //取值运算&p
-    Var* genVal(Var* var); //拷贝
+    Var* genVal(Var* var);
     Var* genAssign(Var* lval, Var* rval);
 };

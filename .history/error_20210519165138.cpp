@@ -39,10 +39,7 @@ string errinfo[] = {
         "Duplicate function definition",
         "Function call failed",
         "Function is undefined or undeclared",
-        "Pointer operation error",
-        "Cannot get the address of the variable",
-        "An lvalue operation is required",
-        "The types of left and right values do not match"
+        "Pointer operation error"
 };
 
 Scanner *Error::sc = NULL;

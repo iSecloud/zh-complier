@@ -14,7 +14,6 @@ GenIR::~GenIR()
 
 bool GenIR::typeCheck(Var* lval, Var* rval)
 {
-    //TODO 需要判断lavl和rval是否为空吗？
     if(lval->isBaseType() && rval->isBaseType()) 
         return true;
     if(!lval->isBaseType() && !rval->isBaseType())

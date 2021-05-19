@@ -40,9 +40,7 @@ string errinfo[] = {
         "Function call failed",
         "Function is undefined or undeclared",
         "Pointer operation error",
-        "Cannot get the address of the variable",
-        "An lvalue operation is required",
-        "The types of left and right values do not match"
+        "Cannot get the address of the variable"
 };
 
 Scanner *Error::sc = NULL;

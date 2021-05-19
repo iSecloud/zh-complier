@@ -52,11 +52,6 @@ Tag Var::getType()
     return type;
 }
 
-Var* Var:: getPointer()
-{
-    return ptr;
-}
-
 void Var::setExtern(bool ext)
 {
     isExtern = ext;
@@ -128,17 +123,6 @@ Var::Var()
 
 Var::~Var()
 {}
-
-//拷贝变量
-Var::Var(vector<int> &scp, Var* var)
-{
-    clear();
-    scopePath = scp;
-    setType(var->getType());
-    setPtr(var->isPtr || var->isArray); //设置指针
-    isLeft = false; //不能作为左值
-    setName("");
-}
 
 //临时变量
 Var::Var(vector<int> &scp, Tag t, bool ptr)

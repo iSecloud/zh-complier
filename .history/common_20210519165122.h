@@ -66,10 +66,7 @@ enum Err //错误记号
     FUN_DEF_MUL,
     FUN_CALL_ERR,
     FUN_UN_DEC,
-    PTR_IS_ERR,
-    GET_ADDRESS_ERR,
-    NOT_LVAL_ERR,
-    TYPE_MATCH_ERR
+    PTR_IS_ERR
 };
 
 enum Operator{

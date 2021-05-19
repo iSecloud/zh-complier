@@ -20,6 +20,7 @@ int main()
     // parser.Analysis();
     int a = 5, c = 10;
     int *p = &a;
-    printf("%d %d %d %d", p, *p , &*p, &a);
+    int **q = &p;
+    printf("%d %d %d %d", &*p, q, &a, &c);
     return 0;
 }
