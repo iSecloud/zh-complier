@@ -337,83 +337,25 @@ Var* GenIR::genSigOp(Tag opt, Var* var)
     if(opt == MUL) return genPtr(var);
     if(opt == INC) return genIncv(var);
     if(opt == DEC) return genDecv(var);
-    if(var->getPointer() != NULL) var = genVal(var); 
-    if(opt == NNOT) return genNot(var); //逻辑!
-    if(!var->isBaseType())
-    {
-        Error::showError(CALC_VAL_ERR);
-        return var;
-    }
-    if(opt == SUB) return genNeg(var); 
+    if(var->getPointer() != NULL) var = genVal(var); //引用类型不能参加以下运算
+    if(opt == SUB) return genNeg(var);
+    if(opt == NNOT) return genNot(var);
     if(opt == NOT) return genInv(var);
 }
 
 Var* GenIR::genIncv(Var* var)
 {
+    Var* tmp = NULL;
     if(!var->getLeft())
     {
         Error::showError(CALC_VAL_ERR);
         return var;
     }
-    //考虑++ *p
-    if(var->getPointer() != NULL)
-    {
-        Var* tmp1 = genVal(var); //取值*p
-        Var* tmp2 = genAdd(tmp1, Var::getStep(var)); //+1
-        genAssign(var, tmp2); //存回来
-    }
-    else
-    {
-        symtab.addCode(new Quaternion(OP_ADD, var, var, Var::getStep(var)));
-        // Var* tmp1 = genAdd(var, Var::getStep(var));
-        // genAssign(var, tmp1);
-    }
-    return var;
-}
-
-Var* GenIR::genDecv(Var* var)
-{
-    if(!var->getLeft())
-    {
-        Error::showError(CALC_VAL_ERR);
-        return var;
-    }
-    //考虑-- *p
-    if(var->getPointer() != NULL)
-    {
-        Var* tmp1 = genVal(var); //取值*p
-        Var* tmp2 = genSub(tmp1, Var::getStep(var)); //+1
-        genAssign(var, tmp2); //存回来
-    }
-    else
-    {
-        symtab.addCode(new Quaternion(OP_SUB, var, var, Var::getStep(var)));
-        // Var* tmp1 = genSub(var, Var::getStep(var));
-        // genAssign(var, tmp1);
-    }
-    return var;
-}
-
-Var* GenIR::genNot(Var* var)
-{
-    Var* tmp = new Var(symtab.getScope(), KW_INT, false);
+    if(!var->isBaseType())
+        tmp = new Var(symtab.getScope(), var);
+    else 
+        tmp = new Var(symtab.getScope(), KW_INT, false);
     symtab.addVar(tmp);
-    symtab.addCode(new Quaternion(OP_NOT, tmp, var));
-    return tmp;
-}
-
-Var* GenIR::genNeg(Var* var)
-{
-    Var* tmp = new Var(symtab.getScope(), KW_INT, false);
-    symtab.addVar(tmp);
-    symtab.addCode(new Quaternion(OP_NEG, tmp, var));
-    return tmp;
-}
-
-Var* GenIR::genInv(Var* var)
-{
-    Var* tmp = new Var(symtab.getScope(), KW_INT, false);
-    symtab.addVar(tmp);
-    symtab.addCode(new Quaternion(OP_INV, tmp, var));
+    symtab.addCode(new Quaternion(OP_ADD, tmp, var, Var::getStep(var)));
     return tmp;
 }

@@ -338,14 +338,14 @@ Var* GenIR::genSigOp(Tag opt, Var* var)
     if(opt == INC) return genIncv(var);
     if(opt == DEC) return genDecv(var);
     if(var->getPointer() != NULL) var = genVal(var); 
-    if(opt == NNOT) return genNot(var); //逻辑!
+    if(opt == NOT) return genInv(var);
     if(!var->isBaseType())
     {
         Error::showError(CALC_VAL_ERR);
         return var;
     }
-    if(opt == SUB) return genNeg(var); 
-    if(opt == NOT) return genInv(var);
+    if(opt == SUB) return genNeg(var);
+    if(opt == NNOT) return genNot(var);
 }
 
 Var* GenIR::genIncv(Var* var)
@@ -392,28 +392,4 @@ Var* GenIR::genDecv(Var* var)
         // genAssign(var, tmp1);
     }
     return var;
-}
-
-Var* GenIR::genNot(Var* var)
-{
-    Var* tmp = new Var(symtab.getScope(), KW_INT, false);
-    symtab.addVar(tmp);
-    symtab.addCode(new Quaternion(OP_NOT, tmp, var));
-    return tmp;
-}
-
-Var* GenIR::genNeg(Var* var)
-{
-    Var* tmp = new Var(symtab.getScope(), KW_INT, false);
-    symtab.addVar(tmp);
-    symtab.addCode(new Quaternion(OP_NEG, tmp, var));
-    return tmp;
-}
-
-Var* GenIR::genInv(Var* var)
-{
-    Var* tmp = new Var(symtab.getScope(), KW_INT, false);
-    symtab.addVar(tmp);
-    symtab.addCode(new Quaternion(OP_INV, tmp, var));
-    return tmp;
 }

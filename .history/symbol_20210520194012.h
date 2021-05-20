@@ -51,7 +51,7 @@ public:
     void clear(); //定义初始化
 
     //外部接口
-    static Var* getStep(Var* var);   
+    static int getStep(Var* var);   
     void setOffset(int off);
     void setLeft(bool left);
     void setPointer(Var* nowptr); //设置ptr具体的值是多少

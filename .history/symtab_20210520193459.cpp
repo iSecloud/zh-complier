@@ -11,12 +11,7 @@ SymTab::SymTab()
     Token* tk = new Num(0); zeroVar = new Var(tk); delete tk;
     tk = new Num(1); oneVar = new Var(tk); delete tk;
     tk = new Num(4); fourVar = new Var(tk); delete tk;
-
-    addVar(voidVar); addVar(zeroVar);
-    addVar(oneVar); addVar(fourVar);
-
-    ir = NULL;
-    curFun = NULL;
+    ir = curFun = NULL;
     scopeNum = 0;
     scopePath.push_back(0);
 }

@@ -60,6 +60,38 @@ void GenIR::genFunReturn(Var* ret)
     }
 }
 
+Var* GenIR::genPtr(Var* var)
+{
+    if(!var->isBaseType())
+    {
+        Error::showError(PTR_IS_ERR);
+        return var;
+    }
+    Var* tmp = new Var(symtab.getScope(), var->getType(), false); //注意此时是*p, 所以(*p)是内容 p才是指针
+    tmp->setLeft(true); //*p是可以作为左值运算的
+    tmp->setPointer(var);
+    symtab.addVar(tmp);
+    return tmp;
+}
+
+Var* GenIR::genAddress(Var* var)
+{
+    if(!var->getLeft())
+    {
+        Error::showError(GET_ADDRESS_ERR);
+        return var;
+    }
+    if(var->getPointer() != NULL) //这只处理&*p这种类型的运算
+        return var->getPointer();
+    else
+    {
+        Var* tmp = new Var(symtab.getScope(), var->getType(), true); //注意这里是指针,指向了地址
+        symtab.addVar(tmp);
+        symtab.addCode(new Quaternion(OP_LEA, tmp, var));
+        return tmp;
+    }
+}
+
 Var* GenIR::genVal(Var* var)
 {
     Var* tmp = new Var(symtab.getScope(), var);
@@ -71,6 +103,26 @@ Var* GenIR::genVal(Var* var)
     }
     else
         symtab.addCode(new Quaternion(OP_ASSIGN, tmp, var)); //普通赋值
+}
+
+Var* GenIR::genAssign(Var* lval, Var* rval)
+{
+    if(!lval->getLeft())
+    {
+        Error::showError(NOT_LVAL_ERR);
+        return lval;
+    }
+    if(!typeCheck(lval, rval))
+    {
+        Error::showError(TYPE_MATCH_ERR);
+        return lval;
+    }
+    if(rval->getPointer() != NULL) rval = genVal(rval);
+    if(lval->getPointer() != NULL)
+        symtab.addCode(new Quaternion(OP_SET, rval, lval->getPointer()));
+    else 
+        symtab.addCode(new Quaternion(OP_ASSIGN, lval, rval));
+    return lval;
 }
 
 Var* GenIR::genBinOp(Tag opt, Var* lval, Var* rval)
@@ -108,26 +160,6 @@ Var* GenIR::genBinOp(Tag opt, Var* lval, Var* rval)
     if(opt == GE) return genGe(lval, rval);
     if(opt == LT) return genLt(lval, rval);
     if(opt == LE) return genLe(lval, rval);
-}
-
-Var* GenIR::genAssign(Var* lval, Var* rval)
-{
-    if(!lval->getLeft())
-    {
-        Error::showError(NOT_LVAL_ERR);
-        return lval;
-    }
-    if(!typeCheck(lval, rval))
-    {
-        Error::showError(TYPE_MATCH_ERR);
-        return lval;
-    }
-    if(rval->getPointer() != NULL) rval = genVal(rval);
-    if(lval->getPointer() != NULL)
-        symtab.addCode(new Quaternion(OP_SET, rval, lval->getPointer()));
-    else 
-        symtab.addCode(new Quaternion(OP_ASSIGN, lval, rval));
-    return lval;
 }
 
 Var* GenIR::genAdd(Var* lval, Var* rval)
@@ -290,130 +322,5 @@ Var* GenIR::genLt(Var* lval, Var* rval)
     Var* tmp = new Var(symtab.getScope(), KW_INT, false);
     symtab.addVar(tmp);
     symtab.addCode(new Quaternion(OP_LT, tmp, lval, rval));
-    return tmp;
-}
-
-Var* GenIR::genPtr(Var* var)
-{
-    if(!var->isBaseType())
-    {
-        Error::showError(PTR_IS_ERR);
-        return var;
-    }
-    Var* tmp = new Var(symtab.getScope(), var->getType(), false); //注意此时是*p, 所以(*p)是内容 p才是指针
-    tmp->setLeft(true); //*p是可以作为左值运算的
-    tmp->setPointer(var);
-    symtab.addVar(tmp);
-    return tmp;
-}
-
-Var* GenIR::genAddress(Var* var)
-{
-    if(!var->getLeft())
-    {
-        Error::showError(GET_ADDRESS_ERR);
-        return var;
-    }
-    if(var->getPointer() != NULL) //这只处理&*p这种类型的运算
-        return var->getPointer();
-    else
-    {
-        Var* tmp = new Var(symtab.getScope(), var->getType(), true); //注意这里是指针,指向了地址
-        symtab.addVar(tmp);
-        symtab.addCode(new Quaternion(OP_LEA, tmp, var));
-        return tmp;
-    }
-}
-
-Var* GenIR::genSigOp(Tag opt, Var* var)
-{
-    if(var == NULL) return NULL;
-    if(var->getType() == KW_VOID) //void不能参加运算
-    {
-        Error::showError(CALC_VAL_ERR);
-        return NULL;
-    }
-    if(opt == AND) return genAddress(var);
-    if(opt == MUL) return genPtr(var);
-    if(opt == INC) return genIncv(var);
-    if(opt == DEC) return genDecv(var);
-    if(var->getPointer() != NULL) var = genVal(var); 
-    if(opt == NNOT) return genNot(var); //逻辑!
-    if(!var->isBaseType())
-    {
-        Error::showError(CALC_VAL_ERR);
-        return var;
-    }
-    if(opt == SUB) return genNeg(var); 
-    if(opt == NOT) return genInv(var);
-}
-
-Var* GenIR::genIncv(Var* var)
-{
-    if(!var->getLeft())
-    {
-        Error::showError(CALC_VAL_ERR);
-        return var;
-    }
-    //考虑++ *p
-    if(var->getPointer() != NULL)
-    {
-        Var* tmp1 = genVal(var); //取值*p
-        Var* tmp2 = genAdd(tmp1, Var::getStep(var)); //+1
-        genAssign(var, tmp2); //存回来
-    }
-    else
-    {
-        symtab.addCode(new Quaternion(OP_ADD, var, var, Var::getStep(var)));
-        // Var* tmp1 = genAdd(var, Var::getStep(var));
-        // genAssign(var, tmp1);
-    }
-    return var;
-}
-
-Var* GenIR::genDecv(Var* var)
-{
-    if(!var->getLeft())
-    {
-        Error::showError(CALC_VAL_ERR);
-        return var;
-    }
-    //考虑-- *p
-    if(var->getPointer() != NULL)
-    {
-        Var* tmp1 = genVal(var); //取值*p
-        Var* tmp2 = genSub(tmp1, Var::getStep(var)); //+1
-        genAssign(var, tmp2); //存回来
-    }
-    else
-    {
-        symtab.addCode(new Quaternion(OP_SUB, var, var, Var::getStep(var)));
-        // Var* tmp1 = genSub(var, Var::getStep(var));
-        // genAssign(var, tmp1);
-    }
-    return var;
-}
-
-Var* GenIR::genNot(Var* var)
-{
-    Var* tmp = new Var(symtab.getScope(), KW_INT, false);
-    symtab.addVar(tmp);
-    symtab.addCode(new Quaternion(OP_NOT, tmp, var));
-    return tmp;
-}
-
-Var* GenIR::genNeg(Var* var)
-{
-    Var* tmp = new Var(symtab.getScope(), KW_INT, false);
-    symtab.addVar(tmp);
-    symtab.addCode(new Quaternion(OP_NEG, tmp, var));
-    return tmp;
-}
-
-Var* GenIR::genInv(Var* var)
-{
-    Var* tmp = new Var(symtab.getScope(), KW_INT, false);
-    symtab.addVar(tmp);
-    symtab.addCode(new Quaternion(OP_INV, tmp, var));
     return tmp;
 }

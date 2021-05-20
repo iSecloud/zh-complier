@@ -18,9 +18,8 @@ int main()
     // SymTab symtab;
     // Parser parser(lexer, symtab);
     // parser.Analysis();
-    int a[10];
+    int a[3] = {0, 1, 2};
     int *p = a;
-    if(!p) printf("+++++");
-    else printf("-----");
+    printf("%d", *p);
     return 0;
 }

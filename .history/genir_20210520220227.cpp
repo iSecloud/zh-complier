@@ -399,21 +399,5 @@ Var* GenIR::genNot(Var* var)
     Var* tmp = new Var(symtab.getScope(), KW_INT, false);
     symtab.addVar(tmp);
     symtab.addCode(new Quaternion(OP_NOT, tmp, var));
-    return tmp;
-}
-
-Var* GenIR::genNeg(Var* var)
-{
-    Var* tmp = new Var(symtab.getScope(), KW_INT, false);
-    symtab.addVar(tmp);
-    symtab.addCode(new Quaternion(OP_NEG, tmp, var));
-    return tmp;
-}
-
-Var* GenIR::genInv(Var* var)
-{
-    Var* tmp = new Var(symtab.getScope(), KW_INT, false);
-    symtab.addVar(tmp);
-    symtab.addCode(new Quaternion(OP_INV, tmp, var));
-    return tmp;
+    
 }

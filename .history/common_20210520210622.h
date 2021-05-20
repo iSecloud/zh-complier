@@ -80,7 +80,7 @@ enum Operator{
     OP_DEC, //声明
     OP_ASSIGN, //赋值
     OP_ADD, OP_SUB, OP_MUL, OP_DIV, OP_MOD, //算术运算
-    OP_NEG, OP_NOT, OP_INV, OP_INCV, OP_DECV, //单目运算- ! ~ ++ --
+    OP_NEG, OP_NOT, OP_INV, OP_INCV, OP_DECV//单目运算- ! ~ ++ --
     OP_AND, OP_XOR, OP_OR, //位运算& | ^
     OP_AAND, OP_OOR,  //逻辑运算 && ||
     OP_GE, OP_GT, OP_LE, OP_LT, OP_EQU, OP_NEQU, //比较运算 >= > <= < == !=

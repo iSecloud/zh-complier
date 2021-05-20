@@ -37,13 +37,7 @@ public:
     Var* genGt(Var* lval, Var* rval); // > 
     Var* genLe(Var* lval, Var* rval); // <= 
     Var* genLt(Var* lval, Var* rval); // < 
-
     Var* genSigOp(Tag opt, Var* var); //单目运算
     Var* genPtr(Var* var); //指针运算*p
     Var* genAddress(Var* var); //取值运算&p
-    Var* genIncv(Var* var);
-    Var* genDecv(Var* var);
-    Var* genNeg(Var* var);
-    Var* genNot(Var* var);
-    Var* genInv(Var* var);
 };

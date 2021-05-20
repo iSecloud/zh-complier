@@ -1,7 +1,7 @@
 #include "symbol.h"
 
 // ================================变量==============================
-Var* Var::getStep(Var* var)
+static Var* Var::getStep(Var* var)
 {
     if(var->isBaseType()) return SymTab::oneVar;
     if(var->type == KW_INT) return SymTab::fourVar;

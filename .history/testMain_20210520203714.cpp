@@ -18,9 +18,9 @@ int main()
     // SymTab symtab;
     // Parser parser(lexer, symtab);
     // parser.Analysis();
-    int a[10];
-    int *p = a;
-    if(!p) printf("+++++");
-    else printf("-----");
+    int a = 5, c = 10;
+    int* p = &a;
+    int* q = &a;
+    if(p == q) printf("++++++++");
     return 0;
 }

@@ -14,9 +14,8 @@ SymTab::SymTab()
 
     addVar(voidVar); addVar(zeroVar);
     addVar(oneVar); addVar(fourVar);
-
-    ir = NULL;
-    curFun = NULL;
+    
+    ir = curFun = NULL;
     scopeNum = 0;
     scopePath.push_back(0);
 }
