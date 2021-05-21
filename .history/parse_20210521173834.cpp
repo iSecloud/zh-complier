@@ -450,32 +450,25 @@ void Parser::ForInit()
 void Parser::IfStat()
 {
     symtab.enter();
-    Quaternion *_else, *_exit;
     move();
     if(!match(LPAREN))
         recovery(isInFollow(FOLLOW{EXPR_FIRST, RPAREN}), LPAREN_LOST);
     Var* condition = altexpr();
-    ir.genIfHead(condition, _else);
+    //TODO 得到判断条件
     if(!match(RPAREN))
         recovery(isInFollow(FOLLOW{LBRACE}), RPAREN_LOST);
     FunBody();
     symtab.leave();
-    ElseStat(_else, _exit);
+    ElseStat();
 }
 
-void Parser::ElseStat(Quaternion* _else, Quaternion* _exit)
+void Parser::ElseStat()
 {
     if(match(KW_ELSE))
     {
-        ir.genElseHead(_else, _exit);
         symtab.enter();
         FunBody();
         symtab.leave();
-        ir.genElseTail(_exit);
-    }
-    else
-    {
-        ir.genIfTail(_else);
     }
 }
 

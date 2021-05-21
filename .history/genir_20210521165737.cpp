@@ -70,7 +70,7 @@ void GenIR::genPara(Var* arg)
 Var* GenIR::genCall(Fun* fun, vector<Var*>& args)
 {
     if(!fun) return NULL;
-    for(int i = args.size() - 1; ~i; i --) //逆向传递参数
+    for(int i = args.size() - 1; ~i; i --)
         genPara(args[i]);
     if(fun->getType() == KW_VOID)
     {
@@ -517,34 +517,4 @@ Var* GenIR::genArray(Var* arr, Var* index) //考虑*(arr + index)
         return NULL;
     }
     return genPtr(genAdd(arr, index)); //产生*(arr + index)的指针
-}
-
-void GenIR::genIfHead(Var* condition, Quaternion*& _else)
-{
-    _else = new Quaternion();
-    if(condition != NULL)
-    {
-        if(condition->getPointer() != NULL)
-        {
-            condition = genVal(condition);
-            symtab.addCode(new Quaternion(OP_JF, _else, condition));
-        }
-    }
-}
-
-void GenIR::genElseHead(Quaternion*& _else, Quaternion*& _exit)
-{
-    _exit = new Quaternion();
-    symtab.addCode(new Quaternion(OP_JMP, _exit));
-    symtab.addCode(_else);
-}
-
-void GenIR::genElseTail(Quaternion*& _exit)
-{
-    symtab.addCode(_exit);
-}
-
-void GenIR::genIfTail(Quaternion*& _else)
-{
-    symtab.addCode(_else);
 }

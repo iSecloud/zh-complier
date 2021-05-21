@@ -87,7 +87,7 @@ enum Operator{
     OP_GE, OP_GT, OP_LE, OP_LT, OP_EQU, OP_NEQU, //比较运算 >= > <= < == !=
     OP_LEA, //取址运算
     OP_SET, OP_GET, //设置左值*y = x 和取值x = *y
-    OP_JMP, OP_JT, OP_JF, //跳转指令
+    OP_JUM, OP_JT, OP_JF, //跳转指令
     OP_PROC, OP_CALL, //调用指令
     OP_ARG, //传入参数
     OP_RET, OP_RETX, //return指令

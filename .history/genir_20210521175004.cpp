@@ -531,20 +531,3 @@ void GenIR::genIfHead(Var* condition, Quaternion*& _else)
         }
     }
 }
-
-void GenIR::genElseHead(Quaternion*& _else, Quaternion*& _exit)
-{
-    _exit = new Quaternion();
-    symtab.addCode(new Quaternion(OP_JMP, _exit));
-    symtab.addCode(_else);
-}
-
-void GenIR::genElseTail(Quaternion*& _exit)
-{
-    symtab.addCode(_exit);
-}
-
-void GenIR::genIfTail(Quaternion*& _else)
-{
-    symtab.addCode(_else);
-}

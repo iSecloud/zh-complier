@@ -460,7 +460,7 @@ void Parser::IfStat()
         recovery(isInFollow(FOLLOW{LBRACE}), RPAREN_LOST);
     FunBody();
     symtab.leave();
-    ElseStat(_else, _exit);
+    ElseStat(*_else, *_exit);
 }
 
 void Parser::ElseStat(Quaternion* _else, Quaternion* _exit)

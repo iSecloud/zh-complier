@@ -8,8 +8,7 @@ Var* SymTab::zeroVar = NULL;
 SymTab::SymTab()
 {
     voidVar = new Var();
-    Token* tk;
-    tk = new Num(0); zeroVar = new Var(tk); delete tk;
+    Token* tk = new Num(0); zeroVar = new Var(tk); delete tk;
     tk = new Num(1); oneVar = new Var(tk); delete tk;
     tk = new Num(4); fourVar = new Var(tk); delete tk;
 

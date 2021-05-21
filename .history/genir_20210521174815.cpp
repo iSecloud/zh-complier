@@ -521,30 +521,5 @@ Var* GenIR::genArray(Var* arr, Var* index) //考虑*(arr + index)
 
 void GenIR::genIfHead(Var* condition, Quaternion*& _else)
 {
-    _else = new Quaternion();
-    if(condition != NULL)
-    {
-        if(condition->getPointer() != NULL)
-        {
-            condition = genVal(condition);
-            symtab.addCode(new Quaternion(OP_JF, _else, condition));
-        }
-    }
-}
 
-void GenIR::genElseHead(Quaternion*& _else, Quaternion*& _exit)
-{
-    _exit = new Quaternion();
-    symtab.addCode(new Quaternion(OP_JMP, _exit));
-    symtab.addCode(_else);
-}
-
-void GenIR::genElseTail(Quaternion*& _exit)
-{
-    symtab.addCode(_exit);
-}
-
-void GenIR::genIfTail(Quaternion*& _else)
-{
-    symtab.addCode(_else);
 }

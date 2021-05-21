@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.vue": "html",
-        "string": "cpp"
+        "string": "cpp",
+        "new": "cpp"
     }
 }

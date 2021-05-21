@@ -17,12 +17,6 @@ public:
     void genFunHead(Fun* fun); //产生函数入口
     void genFunTail(Fun* fun); //产生函数出口
     void genFunReturn(Var* ret); //产生return语句
-    void genPara(Var* arg); //传递参数
-    Var* genCall(Fun* fun, vector<Var*>& args); //调用函数
-    void genIfHead(Var* condition, Quaternion*& _else);
-    void genElseHead(Quaternion*& _else, Quaternion*& _exit);
-    void genElseTail(Quaternion*& _exit);
-    void genIfTail(Quaternion*& _else);
 
     Var* genVal(Var* var); //拷贝(取值)
     Var* genBinOp(Tag opt, Var* lval, Var* rval); //双目运算
@@ -43,6 +37,7 @@ public:
     Var* genGt(Var* lval, Var* rval); // > 
     Var* genLe(Var* lval, Var* rval); // <= 
     Var* genLt(Var* lval, Var* rval); // < 
+
     Var* genSigOpLeft(Tag opt, Var* var); //左单目运算
     Var* genPtr(Var* var); //指针运算*p
     Var* genAddress(Var* var); //取值运算&p
@@ -51,10 +46,8 @@ public:
     Var* genNeg(Var* var); // -
     Var* genNot(Var* var); // !
     Var* genInv(Var* var); // ~
+
     Var* genSigOpRight(Tag opt, Var* var); //右单目运算
-    Var *genIncRight(Var* var); // ++
-    Var* genDecRight(Var* var); // --
-    Var* genArray(Var* arr, Var* index); //数组运算
-
-
+    Var *genIncRight(Var* var);
+    Var* genDecRight(Var* var);
 };

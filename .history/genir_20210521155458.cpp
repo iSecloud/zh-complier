@@ -60,32 +60,6 @@ void GenIR::genFunReturn(Var* ret)
     }
 }
 
-void GenIR::genPara(Var* arg)
-{
-    if(arg->getPointer() != NULL)
-        arg = genVal(arg);
-    symtab.addCode(new Quaternion(OP_ARG, arg));
-}
-
-Var* GenIR::genCall(Fun* fun, vector<Var*>& args)
-{
-    if(!fun) return NULL;
-    for(int i = args.size() - 1; ~i; i --) //逆向传递参数
-        genPara(args[i]);
-    if(fun->getType() == KW_VOID)
-    {
-        symtab.addCode(new Quaternion(OP_PROC, fun));
-        return SymTab::voidVar;
-    }
-    else
-    {
-        Var* tmp = new Var(symtab.getScope(), fun->getType(), false);
-        symtab.addCode(new Quaternion(OP_CALL, fun, tmp));
-        symtab.addVar(tmp);
-        return tmp;
-    }
-}
-
 Var* GenIR::genVal(Var* var)
 {
     Var* tmp = new Var(symtab.getScope(), var);
@@ -93,7 +67,7 @@ Var* GenIR::genVal(Var* var)
     if(var->getPointer() != NULL) //是一个引用类型
     {
         symtab.addCode(new Quaternion(OP_GET, tmp, var->getPointer()));
-        //将var指针指向的值取给tmp
+        //将    var指针指向的值取给tmp
     }
     else
         symtab.addCode(new Quaternion(OP_ASSIGN, tmp, var)); //普通赋值
@@ -156,7 +130,7 @@ Var* GenIR::genAssign(Var* lval, Var* rval)
     return lval;
 }
 
-Var* GenIR::genAdd(Var* lval, Var* rval)
+Var* GenIR::    genAdd(Var* lval, Var* rval)
 {
     Var* tmp = NULL;
     if(!lval->isBaseType()) swap(lval, rval);
@@ -165,7 +139,7 @@ Var* GenIR::genAdd(Var* lval, Var* rval)
         Error::showError(CALC_VAL_ERR);
         return lval;
     }
-    else if(!rval->isBaseType()) //处理p + 1这种情况, 此时p是指针
+    else if(!rval->isBaseType()) //处理*(p + 1)这种情况
     {
         tmp = new Var(symtab.getScope(), rval);
         lval = genMul(lval, Var::getStep(rval));
@@ -321,7 +295,7 @@ Var* GenIR::genLt(Var* lval, Var* rval)
 
 Var* GenIR::genPtr(Var* var)
 {
-    if(var->isBaseType())
+    if(!var->isBaseType())
     {
         Error::showError(PTR_IS_ERR);
         return var;
@@ -466,7 +440,7 @@ Var* GenIR::genIncRight(Var* var)
         return var;
     }
     Var* tmp1 = genVal(var); //拷贝
-    //考虑(*p) ++, 而不是*(p ++) 注意这里我们认为*的运算级更高.
+    //考虑++ *p
     if(var->getPointer() != NULL)
     {
         Var* tmp2 = genAdd(tmp1, Var::getStep(var)); //+1
@@ -501,50 +475,4 @@ Var* GenIR::genDecRight(Var* var)
         // genAssign(var, tmp1);  
     }
     return tmp1;
-}
-
-Var* GenIR::genArray(Var* arr, Var* index) //考虑*(arr + index)
-{
-    if(!arr || !index) return NULL; //报错？
-    if(arr->getType() == KW_VOID || index->getType() == KW_VOID)
-    {
-        Error::showError(ARR_IDX_ERR);
-        return NULL;
-    }
-    if(arr->isBaseType() || !index->isBaseType())
-    {
-        Error::showError(ARR_IDX_ERR);
-        return NULL;
-    }
-    return genPtr(genAdd(arr, index)); //产生*(arr + index)的指针
-}
-
-void GenIR::genIfHead(Var* condition, Quaternion*& _else)
-{
-    _else = new Quaternion();
-    if(condition != NULL)
-    {
-        if(condition->getPointer() != NULL)
-        {
-            condition = genVal(condition);
-            symtab.addCode(new Quaternion(OP_JF, _else, condition));
-        }
-    }
-}
-
-void GenIR::genElseHead(Quaternion*& _else, Quaternion*& _exit)
-{
-    _exit = new Quaternion();
-    symtab.addCode(new Quaternion(OP_JMP, _exit));
-    symtab.addCode(_else);
-}
-
-void GenIR::genElseTail(Quaternion*& _exit)
-{
-    symtab.addCode(_exit);
-}
-
-void GenIR::genIfTail(Quaternion*& _else)
-{
-    symtab.addCode(_else);
 }

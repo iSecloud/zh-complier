@@ -18,6 +18,10 @@ int main()
     // SymTab symtab;
     // Parser parser(lexer, symtab);
     // parser.Analysis();
-    for(int i = 5; ~i; i --) printf("++++");
+    int a = 10;
+    int* p = &a;
+    int** q = &p;
+    *q ++;
+    printf("%d %d %d %d %d %d", q, *q, **q, p, *p, a);
     return 0;
 }

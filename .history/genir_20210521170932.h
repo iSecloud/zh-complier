@@ -19,10 +19,6 @@ public:
     void genFunReturn(Var* ret); //产生return语句
     void genPara(Var* arg); //传递参数
     Var* genCall(Fun* fun, vector<Var*>& args); //调用函数
-    void genIfHead(Var* condition, Quaternion*& _else);
-    void genElseHead(Quaternion*& _else, Quaternion*& _exit);
-    void genElseTail(Quaternion*& _exit);
-    void genIfTail(Quaternion*& _else);
 
     Var* genVal(Var* var); //拷贝(取值)
     Var* genBinOp(Tag opt, Var* lval, Var* rval); //双目运算
