@@ -1,24 +1,6 @@
 #include <sstream>
 #include "token.h"
 
-string TagName[] = {
-    "error", "end",
-    "Secloud",
-    "id",
-    "Num", "Char", "String",
-    "int", "char", "void", "extern", 
-    "read", "write",
-    "if", "else", "switch", "case", "default",
-    "for", "do", "while",
-    "continue", "break", "return",
-    "+", "-", "*", "/", "%", "++", "--",
-    "~", "&", "|", "^",
-    "!", "&&", "||",
-    "=",
-    ">", ">=", "<", "<=", "==", "!=",
-    ",", ":", ";",
-    "(", ")", "[", "]", "{", "}"
-};
 //-------------------基类-------------------
 Token::Token(Tag t) 
 {

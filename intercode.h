@@ -1,6 +1,5 @@
 #pragma once
 #include "common.h"
-#include "symbol.h"
 
 class Quaternion //四元式定义
 {

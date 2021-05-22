@@ -1,5 +1,8 @@
 #include "genir.h"
 #include "common.h"
+#include "symbol.h"
+#include "symtab.h"
+#include "error.h"
 
 int GenIR::labelNum = 0;
 
@@ -97,6 +100,7 @@ Var* GenIR::genVal(Var* var)
     }
     else
         symtab.addCode(new Quaternion(OP_ASSIGN, tmp, var)); //普通赋值
+    return tmp;
 }
 
 Var* GenIR::genBinOp(Tag opt, Var* lval, Var* rval)
@@ -134,6 +138,7 @@ Var* GenIR::genBinOp(Tag opt, Var* lval, Var* rval)
     if(opt == GE) return genGe(lval, rval);
     if(opt == LT) return genLt(lval, rval);
     if(opt == LE) return genLe(lval, rval);
+    return lval; //忽略其他其他运算符
 }
 
 Var* GenIR::genAssign(Var* lval, Var* rval)

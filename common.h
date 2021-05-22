@@ -8,6 +8,25 @@
 #include <ctime>
 using namespace std;
 
+static string TagName[] = {
+    "error", "end",
+    "Secloud",
+    "id",
+    "Num", "Char", "String",
+    "int", "char", "void", "extern", 
+    "read", "write",
+    "if", "else", "switch", "case", "default",
+    "for", "do", "while",
+    "continue", "break", "return",
+    "+", "-", "*", "/", "%", "++", "--",
+    "~", "&", "|", "^",
+    "!", "&&", "||",
+    "=",
+    ">", ">=", "<", "<=", "==", "!=",
+    ",", ":", ";",
+    "(", ")", "[", "]", "{", "}"
+};
+
 enum Tag //词法记号
 {
     ERR, END, //错误 结束符    
@@ -93,3 +112,15 @@ enum Operator{
     OP_RET, OP_RETX, //return指令
     OP_READ, OP_WRITE //读写指令
 };
+
+class Token;
+class Scanner;
+class Error;
+class Lexer;
+class SymTab;
+class GenIR;
+class Var;
+class Fun;
+class Quaternion;
+class InterCode;
+class Parser;

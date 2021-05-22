@@ -1,6 +1,19 @@
 #include "symbol.h"
+#include "symtab.h"
+#include "error.h"
+#include "token.h"
+#include "common.h"
 
 // ================================变量==============================
+void Var::toStringVar()
+{   
+    cout << "Var:\n";
+    cout << "Name: " + name << endl;
+    cout << "Type: " + TagName[type] << endl;
+    for(auto i: scopePath) cout << i << " ";
+    printf("\n----------------------\n");
+}
+
 Var* Var::getStep(Var* var)
 {
     if(var->isBaseType()) return SymTab::oneVar;
@@ -117,6 +130,7 @@ void Var::setArray(int len)
 void Var::clear()
 {
     scopePath.clear();
+    scopePath.push_back(-1); //全局作用域
     type = KW_INT; //默认为int
     
     literal = false;
@@ -286,6 +300,16 @@ void Fun::locate(Var* var)
 void Fun::addCode(Quaternion *code)
 {
     incode.addQuaternion(code);
+}
+
+void Fun::toStringFun()
+{
+    cout << "Function:\n";
+    cout << "Type: " + TagName[type] << endl;
+    cout << "Name: " + name << endl;
+    cout << "Paras: " << endl;
+    for(auto i: paraVar) cout << i->getName() << " ";
+    printf("\n------------------------\n");
 }
 
 void Fun::setExtern(bool ext)

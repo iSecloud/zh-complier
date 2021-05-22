@@ -1,9 +1,5 @@
 #include "common.h"
 #include "parse.h"
-#include "lex.h"
-#include "token.h"
-#include "symbol.h"
-#include "error.h"
 
 #define FOLLOW vector<int>
 #define LALO_FIRST ASSIGN, OOR, AAND, OR, XOR, AND, GT, GE, LT, LE, EQU, NEQU, ADD, SUB, MUL, \
@@ -30,6 +26,7 @@ Tag Parser::GetTag()
 
 void Parser::Analysis()
 {
+    printf("Begin to Analysis....\n");
     move();
     Program();
 }
@@ -37,20 +34,20 @@ void Parser::Analysis()
 void Parser::move()
 {
     lookahead = lexer.getToken();   
-    cout << lookahead->toString() << endl; system("pause");
+    cout << lookahead->toString() << endl; 
 }
 
 bool Parser::match(int need)
 {
-    // if(lookahead->tag == END) 
-    // {
-    //     printf("var size = %d\n", symtab.getVarList().size()); 
-    //     for(auto i: symtab.getVarList()) cout << i << endl;
+    if(lookahead->tag == END) 
+    {
+        printf("var size = %d\n", symtab.getVarList().size()); 
+        for(auto i: symtab.getVarList()) cout << i << endl;
 
-    //     printf("fun size = %d\n", symtab.getFunList().size());
-    //     for(auto i: symtab.getFunList()) cout << i << endl;
-    //     exit(0);
-    // }
+        printf("fun size = %d\n", symtab.getFunList().size());
+        for(auto i: symtab.getFunList()) cout << i << endl;
+        exit(0);
+    }
     if(lookahead->tag == need)
     {
         move();
@@ -59,7 +56,7 @@ bool Parser::match(int need)
     return false;
 }
 
-//是否在follow集里面
+//是否在select集里面
 bool Parser::isInFollow(vector<int> a)
 {
     if(find(a.begin(), a.end(), lookahead->tag) != a.end()) 
@@ -83,6 +80,7 @@ void Parser::Program()
 
 void Parser::Segment()
 {
+    //printf("I am in Segment!"); 
     bool ext = match(KW_EXTERN);
     Tag t = Type();
     Def(t, ext);
@@ -303,6 +301,7 @@ void Parser::FunDef()
 
 void Parser::FunTail(Fun* fun)
 {
+    //printf("I am in funtail"); 
     //printf("funck!!!");
     if(match(SEMICON))
     {
@@ -320,6 +319,7 @@ void Parser::FunTail(Fun* fun)
 
 void Parser::FunBody()
 {
+    //printf("I am in funbody"); 
     if(!match(LBRACE)) 
         recovery(isInFollow(FOLLOW{TYPE_FIRST, STAT_FIRST, RBRACE}), LBRACE_LOST);
     FunProgram();
@@ -329,6 +329,7 @@ void Parser::FunBody()
 
 void Parser::FunProgram()
 {
+    //printf("I am in funprogram"); 
     if(isInFollow(FOLLOW{TYPE_FIRST})) 
     {
         LocalDef();
@@ -381,6 +382,7 @@ void Parser::Statement()
     }
     else
     {
+        //printf("I will in expr"); 
         altexpr();
         if(match(SEMICON))
             recovery(isInFollow(FOLLOW{KW_EXTERN, RBRACE, KW_CASE, KW_DEFAULT, TYPE_FIRST, STAT_FIRST, EXPR_FIRST}), SEMICON_LOST);
@@ -550,6 +552,7 @@ void Parser::WriteStat(int num) //TODO 以后进行完善
 
 Var* Parser::altexpr()
 {
+    //printf("In altexpr!"); 
     if(isInFollow(FOLLOW{EXPR_FIRST}))
         return expr();
     else return NULL; //TODO 返回一个空变量
@@ -557,6 +560,7 @@ Var* Parser::altexpr()
 
 Var* Parser::expr()
 {
+    //printf("In expr!");
     return assexpr();
 }
 
@@ -741,14 +745,17 @@ Tag Parser::rop()
 
 Var* Parser::element()
 {
-    if(match(ID))
+    //printf("I am in element!"); 
+    if(isInFollow(FOLLOW{ID}))
     {
+        //printf("++++++++++++++++++\n");
         string name = ((Id*)lookahead)->id;
         move();
         return idexpr(name);
     }
     else if(match(LPAREN))
     {
+        //printf("-------------------\n");
         Var* exp = expr();
         if(!match(RPAREN))
             recovery(isInFollow(FOLLOW{LALO_FIRST}), RPAREN_LOST);
@@ -759,6 +766,7 @@ Var* Parser::element()
 
 Var* Parser::idexpr(string name)
 {
+    //printf("I am in idexpr!"); 
     if(match(LBRACKET))
     {
         Var* len = expr();
@@ -774,6 +782,7 @@ Var* Parser::idexpr(string name)
         if(!match(RPAREN))
             recovery(isInFollow(FOLLOW{RALO_FIRST}), RPAREN_LOST);
         Fun* fun = symtab.getFun(name, argList);
+        //fun->toStringFun(); //system("pause");
         Var* ans;        //TODO 调用函数并进行运算
         return ans;
     }

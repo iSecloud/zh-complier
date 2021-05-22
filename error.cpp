@@ -66,5 +66,5 @@ void Error::showError(Err errCode)
     printf("Error %d: the %d row, the %d col: ", ++errNum, posx, posy);
     
     cout << errinfo[(int)errCode] << endl;
-    system("pause");
+    //system("pause");
 }

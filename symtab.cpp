@@ -1,4 +1,7 @@
 #include "symtab.h"
+#include "symbol.h"
+#include "token.h"
+#include "error.h"
 
 Var* SymTab::voidVar = NULL;
 Var* SymTab::oneVar = NULL;
@@ -9,13 +12,13 @@ SymTab::SymTab()
 {
     voidVar = new Var();
     Token* tk;
-    tk = new Num(0); zeroVar = new Var(tk); delete tk;
-    tk = new Num(1); oneVar = new Var(tk); delete tk;
-    tk = new Num(4); fourVar = new Var(tk); delete tk;
+    tk = new Num(0); zeroVar = new Var(tk); //delete tk;
+    tk = new Num(1); oneVar = new Var(tk); //delete tk;
+    tk = new Num(4); fourVar = new Var(tk); //delete tk;
 
-    addVar(voidVar); 
+    addVar(voidVar);
     addVar(zeroVar);
-    addVar(oneVar); 
+    addVar(oneVar);
     addVar(fourVar);
 
     ir = NULL;
@@ -42,6 +45,7 @@ void SymTab::leave()
 
 void SymTab::addVar(Var* var)
 {
+    var->toStringVar();
     if(varTab.find(var->getName()) == varTab.end())
     {
         //这里等价于创建一个新的key-val
@@ -65,7 +69,6 @@ void SymTab::addVar(Var* var)
             return;
         }
     }
-
     //TODO 变量初始化 和代码生成有关
 }
 

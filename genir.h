@@ -1,7 +1,5 @@
 #pragma once
 #include "common.h"
-#include "symbol.h"
-#include "symtab.h"
 
 class GenIR //生成中间代码
 {

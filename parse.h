@@ -4,6 +4,8 @@
 #include "token.h"
 #include "symbol.h"
 #include "symtab.h"
+#include "genir.h"
+#include "error.h"
 
 class Parser
 {

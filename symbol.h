@@ -1,9 +1,6 @@
 #pragma once
 #include "common.h"
-#include "token.h"
-#include "error.h"
 #include "intercode.h"
-#include "symtab.h"
 
 // 变量定义
 class Var
@@ -51,6 +48,7 @@ public:
     void clear(); //定义初始化
 
     //外部接口
+    void toStringVar();
     static Var* getStep(Var* var);   
     void setOffset(int off);
     void setLeft(bool left);
@@ -98,6 +96,7 @@ public:
     Quaternion* getReturnPoint();
 
     //外部接口
+    void toStringFun();
     void setExtern(bool ext);
     string getName();
     vector<Var*> &getPara();

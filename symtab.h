@@ -1,8 +1,5 @@
 #pragma once
 #include "common.h"
-#include "symbol.h"
-#include "error.h"
-#include "genir.h"
 using namespace std;
 
 class SymTab
@@ -18,7 +15,7 @@ class SymTab
     Fun* curFun; //当前函数
     int scopeNum; //全局路径编号
     vector<int> scopePath; //当前路径
-    GenIR *ir;
+    GenIR *ir; //中间代码生成
 
 public:
 
