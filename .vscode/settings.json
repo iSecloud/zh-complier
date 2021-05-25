@@ -2,6 +2,8 @@
     "files.associations": {
         "*.vue": "html",
         "string": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "CGEN.C": "cpp",
+        "optional": "cpp"
     }
 }
