@@ -18,8 +18,6 @@ public:
     void labelPush(Quaternion* inlb, Quaternion* outlb); 
     void labelPop();
     
-    void genRead(Var* var); //读入语句
-    void genWrite(Var* var); //输出语句
     void genBreak(); //break语句
     void genContinue(); //continue语句
     void genFunHead(Fun* fun); //产生函数入口

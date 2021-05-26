@@ -36,7 +36,7 @@ class Parser
     void ParaList(vector<Var*> &paraList);
 
     //语句定义
-    void Statement();
+    void* Statement();
     void WhileStat();
     void DoWhileStat();
     void ForStat();

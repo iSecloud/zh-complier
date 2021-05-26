@@ -539,9 +539,7 @@ Var* Parser::SecloudStat()
     else 
     {
         Token* num = new Num(RadNum());
-        Var* tmp = new Var(num);
-        symtab.addVar(tmp);
-        return tmp;
+        return new Var(num);
     }
     if(!match(RPAREN))
         recovery(isInFollow(FOLLOW{SEMICON}), RPAREN_LOST);
@@ -556,43 +554,15 @@ int Parser::RadNum()
     return num[rand() % 4];
 }
 
-void Parser::ReadStat() 
+void Parser::ReadStat() //TODO 以后进行完善
 {
     move();
     if(!match(LPAREN))
         recovery(isInFollow(FOLLOW{NUM}), LPAREN_LOST);
-    if(!match(NUM))
-        recovery(isInFollow(FOLLOW{RPAREN}), NUM_LOST);
-    else
-    {
-        Var* num = literal();
-        ir.genRead(num);
-    }
-    if(!match(RPAREN))
-        recovery(isInFollow(FOLLOW{SEMICON}), RPAREN_LOST);
-    if(!match(SEMICON))
-        recovery(isInFollow(FOLLOW{KW_EXTERN, RBRACE, KW_CASE, KW_DEFAULT, TYPE_FIRST, STAT_FIRST, EXPR_FIRST}), SEMICON_LOST);
 }
 
-void Parser::WriteStat() 
-{
-    move();
-    if(!match(LPAREN))
-        recovery(isInFollow(FOLLOW{NUM}), LPAREN_LOST);
-    if(isInFollow(FOLLOW{ID}))
-        recovery(isInFollow(FOLLOW{RPAREN}), NUM_LOST);
-    else
-    {
-        string name = ((Id*)lookahead)->id;
-        Var* var = symtab.getVar(name);
-        if(var->getType() != KW_INT)
-        {
-            Error::showError(WRITE_TYPE_ERR);
-            return;
-        }
-        ir.genWrite(var);
-    }
-}
+void Parser::WriteStat() //TODO 以后进行完善
+{}
 
 Var* Parser::altexpr()
 {

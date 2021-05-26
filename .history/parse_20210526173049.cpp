@@ -556,7 +556,7 @@ int Parser::RadNum()
     return num[rand() % 4];
 }
 
-void Parser::ReadStat() 
+void Parser::ReadStat() //TODO 以后进行完善
 {
     move();
     if(!match(LPAREN))
@@ -574,23 +574,16 @@ void Parser::ReadStat()
         recovery(isInFollow(FOLLOW{KW_EXTERN, RBRACE, KW_CASE, KW_DEFAULT, TYPE_FIRST, STAT_FIRST, EXPR_FIRST}), SEMICON_LOST);
 }
 
-void Parser::WriteStat() 
+void Parser::WriteStat() //TODO 以后进行完善
 {
     move();
     if(!match(LPAREN))
         recovery(isInFollow(FOLLOW{NUM}), LPAREN_LOST);
-    if(isInFollow(FOLLOW{ID}))
+    if(!match(ID))
         recovery(isInFollow(FOLLOW{RPAREN}), NUM_LOST);
     else
     {
-        string name = ((Id*)lookahead)->id;
-        Var* var = symtab.getVar(name);
-        if(var->getType() != KW_INT)
-        {
-            Error::showError(WRITE_TYPE_ERR);
-            return;
-        }
-        ir.genWrite(var);
+        Var* var = 
     }
 }
 

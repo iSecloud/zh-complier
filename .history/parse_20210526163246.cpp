@@ -353,8 +353,9 @@ void Parser::Statement()
     else if(t == KW_FOR) ForStat();
     else if(t == KW_IF) IfStat();
     else if(t == KW_SWITCH) SwitchStat();
+    else if(t == KW_SECLOUD) SecloudStat();
     else if(t == KW_READ) ReadStat();
-    else if(t == KW_WRITE) WriteStat();
+    else if(t == KW_WRITE) WriteStat(0);
     else if(t == KW_BREAK) 
     {
         move();
@@ -529,20 +530,16 @@ void Parser::CaseStat(Var* condition)
     }
 }
 
-Var* Parser::SecloudStat()
+void Parser::SecloudStat()
 {
     move();
     if(!match(LPAREN))
         recovery(isInFollow(FOLLOW{NUM}), LPAREN_LOST);
+    int num = 0;
     if(!match(NUM))
         recovery(isInFollow(FOLLOW(RPAREN)), NUM_LOST);
     else 
-    {
-        Token* num = new Num(RadNum());
-        Var* tmp = new Var(num);
-        symtab.addVar(tmp);
-        return tmp;
-    }
+        WriteStat(RadNum());
     if(!match(RPAREN))
         recovery(isInFollow(FOLLOW{SEMICON}), RPAREN_LOST);
     if(!match(SEMICON))
@@ -556,43 +553,11 @@ int Parser::RadNum()
     return num[rand() % 4];
 }
 
-void Parser::ReadStat() 
-{
-    move();
-    if(!match(LPAREN))
-        recovery(isInFollow(FOLLOW{NUM}), LPAREN_LOST);
-    if(!match(NUM))
-        recovery(isInFollow(FOLLOW{RPAREN}), NUM_LOST);
-    else
-    {
-        Var* num = literal();
-        ir.genRead(num);
-    }
-    if(!match(RPAREN))
-        recovery(isInFollow(FOLLOW{SEMICON}), RPAREN_LOST);
-    if(!match(SEMICON))
-        recovery(isInFollow(FOLLOW{KW_EXTERN, RBRACE, KW_CASE, KW_DEFAULT, TYPE_FIRST, STAT_FIRST, EXPR_FIRST}), SEMICON_LOST);
-}
+void Parser::ReadStat() //TODO 以后进行完善
+{}
 
-void Parser::WriteStat() 
-{
-    move();
-    if(!match(LPAREN))
-        recovery(isInFollow(FOLLOW{NUM}), LPAREN_LOST);
-    if(isInFollow(FOLLOW{ID}))
-        recovery(isInFollow(FOLLOW{RPAREN}), NUM_LOST);
-    else
-    {
-        string name = ((Id*)lookahead)->id;
-        Var* var = symtab.getVar(name);
-        if(var->getType() != KW_INT)
-        {
-            Error::showError(WRITE_TYPE_ERR);
-            return;
-        }
-        ir.genWrite(var);
-    }
-}
+void Parser::WriteStat(int num) //TODO 以后进行完善
+{}
 
 Var* Parser::altexpr()
 {
@@ -605,7 +570,6 @@ Var* Parser::altexpr()
 Var* Parser::expr()
 {
     //printf("In expr!");
-    if(match(KW_SECLOUD)) return SecloudStat();
     return assexpr();
 }
 
@@ -777,7 +741,7 @@ Var* Parser::val()
     if(isInFollow(FOLLOW{INC, DEC}))
     {
         Tag rp = rop();
-        ans = ir.genSigOpRight(rp, ans);
+        //TODO 记录单目运算的运算答案
     }
     return ans;
 }
@@ -792,12 +756,14 @@ Var* Parser::element()
     //printf("I am in element!"); 
     if(isInFollow(FOLLOW{ID}))
     {
+        //printf("++++++++++++++++++\n");
         string name = ((Id*)lookahead)->id;
         move();
         return idexpr(name);
     }
     else if(match(LPAREN))
     {
+        //printf("-------------------\n");
         Var* exp = expr();
         if(!match(RPAREN))
             recovery(isInFollow(FOLLOW{LALO_FIRST}), RPAREN_LOST);
@@ -815,7 +781,7 @@ Var* Parser::idexpr(string name)
         if(!match(RBRACKET))
             recovery(isInFollow(FOLLOW{LALO_FIRST}), RBRACKET_LOST);
         Var* array = symtab.getVar(name);
-        return ir.genArray(array, len);
+        return array; //TODO 数组运算表达式
     }
     else if(match(LPAREN))
     {
@@ -824,7 +790,8 @@ Var* Parser::idexpr(string name)
         if(!match(RPAREN))
             recovery(isInFollow(FOLLOW{RALO_FIRST}), RPAREN_LOST);
         Fun* fun = symtab.getFun(name, argList);
-        Var* ans = ir.genCall(fun, argList);
+        //fun->toStringFun(); //system("pause");
+        Var* ans;        //TODO 调用函数并进行运算
         return ans;
     }
     else

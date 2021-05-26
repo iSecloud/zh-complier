@@ -702,12 +702,7 @@ void GenIR::genContinue()
     else Error::showError(CONTINUE_IS_ERR);
 }
 
-void GenIR::genRead(Var* var)
+void GenIR::genRead(Var* num)
 {
-    symtab.addCode(new Quaternion(OP_READ, var));
-}
-
-void GenIR::genWrite(Var* var)
-{
-    symtab.addCode(new Quaternion(OP_WRITE, var));
+    
 }

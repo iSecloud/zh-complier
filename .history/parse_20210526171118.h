@@ -36,7 +36,7 @@ class Parser
     void ParaList(vector<Var*> &paraList);
 
     //语句定义
-    void Statement();
+    Var* Statement();
     void WhileStat();
     void DoWhileStat();
     void ForStat();
@@ -48,7 +48,7 @@ class Parser
     Var* SecloudStat();
     int RadNum();
     void ReadStat();
-    void WriteStat();
+    void WriteStat(int num);
 
     //表达式定义 lval表示左值 rval表示右值
     //命名还是采用全小写吧...

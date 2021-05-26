@@ -706,8 +706,3 @@ void GenIR::genRead(Var* var)
 {
     symtab.addCode(new Quaternion(OP_READ, var));
 }
-
-void GenIR::genWrite(Var* var)
-{
-    symtab.addCode(new Quaternion(OP_WRITE, var));
-}
