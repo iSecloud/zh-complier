@@ -1,3 +1,9 @@
-sudo apt-get install build-essential cmake libatlas-base-dev libatlas-base-dev libgoogle-glog-dev \
-                     libopencv-dev libsuitesparse-dev python3-pip python3-dev  python3-numpy\
-                     python3-pyproj python3-scipy python3-yaml libeigen3-dev
+void fun(int x, int y, int z) 
+{}
+
+int main() 
+{ 
+	int a, b, c; 
+	fun(a, b, c); 
+}
+end

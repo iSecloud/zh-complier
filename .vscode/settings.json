@@ -4,6 +4,8 @@
         "string": "cpp",
         "new": "cpp",
         "CGEN.C": "cpp",
-        "optional": "cpp"
+        "optional": "cpp",
+        "ostream": "cpp",
+        "iostream": "cpp"
     }
 }

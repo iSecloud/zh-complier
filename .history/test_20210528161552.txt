@@ -1,0 +1,14 @@
+int a = 5;
+int b = 10;
+
+int fun(int x, int y)
+{
+	return x + y;
+}
+
+int main()
+{
+    int num = 10;
+    return 0;
+}
+

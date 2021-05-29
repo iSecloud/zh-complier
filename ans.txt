@@ -1,0 +1,23 @@
+Begin to Analysis....
+----------------fun------------
+Code 1 OP_ENTRY fun
+Code 2 OP_LABEL @L1
+Code 3 OP_EXIT fun
+-------------------------------------
+----------------main------------
+Code 1 OP_ENTRY main
+Code 2 OP_DEC var is a
+Code 3 OP_DEC var is b
+Code 4 OP_DEC var is c
+Code 5 OP_ARG push arg c
+Code 6 OP_ARG push arg b
+Code 7 OP_ARG push arg a
+Code 8 OP_PROC call function fun
+Code 9 OP_LABEL @L2
+Code 10 OP_EXIT main
+-------------------------------------
+Error 1: the 9 row, the 3 col: Missing type definition
+var size = 8
+<void>, <int>, x, y, z, a, b, c, 
+fun size = 2
+fun, main, 
