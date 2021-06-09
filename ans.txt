@@ -1,23 +1,26 @@
 Begin to Analysis....
-----------------fun------------
-Code 1 OP_ENTRY fun
-Code 2 OP_LABEL @L1
-Code 3 OP_EXIT fun
+----------------exgcd------------
+Code 1 OP_ENTRY exgcd
+Code 2 OP_RETX return value is 0 and the return point is @L1
+Code 3 OP_LABEL @L1
+Code 4 OP_EXIT exgcd
 -------------------------------------
 ----------------main------------
 Code 1 OP_ENTRY main
-Code 2 OP_DEC var is a
-Code 3 OP_DEC var is b
-Code 4 OP_DEC var is c
-Code 5 OP_ARG push arg c
-Code 6 OP_ARG push arg b
-Code 7 OP_ARG push arg a
-Code 8 OP_PROC call function fun
-Code 9 OP_LABEL @L2
-Code 10 OP_EXIT main
+Code 2 OP_ARG push arg 4
+Code 3 OP_ARG push arg 3
+Code 4 OP_ARG push arg 2
+Code 5 OP_ARG push arg 1
+Code 6 OP_CALL @L3=exgcd
+Code 7 OP_DEC var is @L3
+Code 8 OP_DEC var is a
+Code 9 OP_ASSIGN a=@L3
+Code 10 OP_RETX return value is 0 and the return point is @L2
+Code 11 OP_LABEL @L2
+Code 12 OP_EXIT main
 -------------------------------------
-Error 1: the 9 row, the 3 col: Missing type definition
-var size = 8
-<void>, <int>, x, y, z, a, b, c, 
+Error 1: the 13 row, the 3 col: Missing type definition
+var size = 7
+<void>, <int>, a, b, x, y, @L3, 
 fun size = 2
-fun, main, 
+exgcd, main, 

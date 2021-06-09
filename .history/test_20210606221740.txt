@@ -1,7 +1,7 @@
 
 int exgcd(int a, int b, int x, int y)
 {
-    return 0;
+    return 0
 }
 
 

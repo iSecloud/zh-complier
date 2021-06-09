@@ -1,0 +1,18 @@
+int a, b, c
+
+void fun(int x, int y, int z) 
+{}
+
+void fun(int x, int y)
+{}
+
+int main() 
+{ 
+	int a, b, c; 
+	int a = 5;
+	b = cc; 
+	void cc = 10;
+	int d = func(1, 2, 3);
+	int f[-3];
+}
+end

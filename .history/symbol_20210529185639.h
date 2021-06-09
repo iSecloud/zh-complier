@@ -53,7 +53,7 @@ public:
     static Var* getFalse();
     static Var* getVoid();  
     void toStringVar();
-    bool setInit(); 
+    bool setInit();
     void setOffset(int off);
     void setLeft(bool left);
     void setPointer(Var* nowptr); //设置ptr具体的值是多少
