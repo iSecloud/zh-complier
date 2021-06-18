@@ -24,12 +24,11 @@ int main()
     // GenIR ir(symtab);
     // Parser parser(lexer, symtab, ir);
     // parser.Analysis();
-    string ss = "r";
-    for(int i = 0; i <= 10; i ++)
+    stringstream s;
+    for(int i = 0; i < 10; i ++)
     {
-        stringstream s;
         s << i;
-        cout << ss + s.str() << endl;
+        cout >> s >> endl;
     }
     return 0;
 }

@@ -24,12 +24,8 @@ int main()
     // GenIR ir(symtab);
     // Parser parser(lexer, symtab, ir);
     // parser.Analysis();
-    string ss = "r";
-    for(int i = 0; i <= 10; i ++)
-    {
-        stringstream s;
-        s << i;
-        cout << ss + s.str() << endl;
-    }
+    unsigned int num;
+    scanf("%u", &num);
+    printf("%x\n%x", num, ((num & 3) << 30));
     return 0;
 }

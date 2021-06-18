@@ -1,11 +1,16 @@
 {
     "files.associations": {
+        "**/*.html": "html",
+        "**/templates/**/*.html": "django-html",
+        "**/templates/**/*": "django-txt",
+        "**/requirements{/**,*}.{txt,in}": "pip-requirements",
         "*.vue": "html",
         "string": "cpp",
         "new": "cpp",
         "CGEN.C": "cpp",
         "optional": "cpp",
         "ostream": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "iosfwd": "cpp"
     }
 }
