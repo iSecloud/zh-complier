@@ -1,5 +1,5 @@
 #include "obj.h"
-#define emit(args...) arm_code.push_back(new Arm(args))
+#define emit(args...) code.push_back(new Arm(args))
 
 Arm::Arm(string op, string res, string arg1, string arg2, string addition)
 {
@@ -45,19 +45,4 @@ Obj::~Obj()
 void Obj::objCode(string op)
 {
     emit(op);
-}
-
-void Obj::objCode(string op, string res)
-{
-    emit(op, res);
-}
-
-void Obj::objCode(string op, string res, string arg1)
-{
-    emit(op, res, arg1);
-}
-
-void Obj::objCode(string op, string res, string arg1, string arg2)
-{
-    emit(op, res, arg1, arg2);
 }

@@ -38,8 +38,5 @@ public:
     void ldrBase(string reg, string baseReg, int offset, bool isChar); //寄存器基址寻址
     void ldrArg(Fun* fun); //加载参数
     //储存指令
-    void strBase(string reg, string baseReg, string tmpReg, int offset, bool isChar); 
-    void strVar(string reg, string tmpReg, Var* var);
-    //函数调用
-    
+    void strBase(string reg, string baseReg, string tmpReg, int offset, bool isChar);
 };

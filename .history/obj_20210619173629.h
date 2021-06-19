@@ -40,6 +40,4 @@ public:
     //储存指令
     void strBase(string reg, string baseReg, string tmpReg, int offset, bool isChar); 
     void strVar(string reg, string tmpReg, Var* var);
-    //函数调用
-    
 };

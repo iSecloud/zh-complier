@@ -46,18 +46,3 @@ void Obj::objCode(string op)
 {
     emit(op);
 }
-
-void Obj::objCode(string op, string res)
-{
-    emit(op, res);
-}
-
-void Obj::objCode(string op, string res, string arg1)
-{
-    emit(op, res, arg1);
-}
-
-void Obj::objCode(string op, string res, string arg1, string arg2)
-{
-    emit(op, res, arg1, arg2);
-}

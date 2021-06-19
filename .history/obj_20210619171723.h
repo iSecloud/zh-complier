@@ -34,12 +34,4 @@ public:
     //加载指令ldr
     void ldrImm(string reg, int num); //立即数加载到寄存器
     void ldrVar(string reg, Var* var); //变量加载到寄存器
-    void ldrFake(string reg, string name); //伪指令LDR, LDR{cond} Rm, =addr
-    void ldrBase(string reg, string baseReg, int offset, bool isChar); //寄存器基址寻址
-    void ldrArg(Fun* fun); //加载参数
-    //储存指令
-    void strBase(string reg, string baseReg, string tmpReg, int offset, bool isChar); 
-    void strVar(string reg, string tmpReg, Var* var);
-    //函数调用
-    
 };

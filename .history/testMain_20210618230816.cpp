@@ -24,6 +24,9 @@ int main()
     // GenIR ir(symtab);
     // Parser parser(lexer, symtab, ir);
     // parser.Analysis();
-    printf("%d\t%d", 1, 2);
+    int a = 5, b = 10;
+    int* p = &a;
+    *p = b;
+    printf("%d %d", p, *p);
     return 0;
 }
