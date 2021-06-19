@@ -196,24 +196,5 @@ void Obj::allocStack(Fun* fun, string tmpReg)
 
 void Obj::callFun(Fun* fun, string tmpReg)
 {
-    string name = fun->getName();
-    emit("bl", name);
-    int offset = fun->getPara().size() * 4;
-    if(!ARM::validConstExpr(offset))
-    {
-        ldrImm(tmpReg, offset);
-        emit("add", "sp", "sp", tmpReg);
-    }
-    else
-        emit("add", "sp", "sp", immNum(offset));
-}
-
-void Obj::callLibFun(string fun, string res2, string reg0, string reg1)
-{
-    emit("stmfd", "sp!", "{r0-r7}");
-    emit("mov", "r0", reg0);
-    emit("mov", "r1", reg1);
-    emit("bl", fun);
-    emit("mov", res2, "r0");
-    emit("ldmfd", "sp!", "{r0-r7}");
+    
 }

@@ -118,7 +118,8 @@ void Obj::ldrVar(string reg, Var* var)
         if(isGlb) //全局变量通过数据段查找
         {
             ldrFake(reg, var->getName());
-            if(isVar) ldrBase(reg, reg, 0, var->isChar());
+            if(isVar) 
+                ldrBase(reg, reg, 0, var->isChar());
         }
         else //局部变量通过fp查找
         {
@@ -157,14 +158,19 @@ void Obj::strVar(string reg, string tmpReg, Var* var)
     if(!var) return;
     //TODO 寄存器优化
     bool isGlb = var->getOffset();
+    bool isVar = !var->isArr();
     if(isGlb) //全局变量通过数据段查找
     {
         ldrFake(tmpReg, var->getName());
-        strBase(reg, tmpReg, tmpReg, 0, var->isChar());
+        if(isVar) strBase(reg, tmpReg, tmpReg, 0, var->isChar());
     }
     else //局部变量通过fp查找
-        strBase(reg, "fp", tmpReg, var->getOffset(), var->isChar());
-    //TODO 分割优化
+    {
+        if(isVar) 
+            strBase(reg, "fp", tmpReg, var->getOffset(), var->isChar());
+        else 
+
+    }       
 }
 
 void Obj::leaStack(string reg, int offset)
@@ -192,28 +198,5 @@ void Obj::allocStack(Fun* fun, string tmpReg)
     }
     else
         emit("sub", "sp", "sp", immNum(offset));
-}
-
-void Obj::callFun(Fun* fun, string tmpReg)
-{
-    string name = fun->getName();
-    emit("bl", name);
-    int offset = fun->getPara().size() * 4;
-    if(!ARM::validConstExpr(offset))
-    {
-        ldrImm(tmpReg, offset);
-        emit("add", "sp", "sp", tmpReg);
-    }
-    else
-        emit("add", "sp", "sp", immNum(offset));
-}
-
-void Obj::callLibFun(string fun, string res2, string reg0, string reg1)
-{
-    emit("stmfd", "sp!", "{r0-r7}");
-    emit("mov", "r0", reg0);
-    emit("mov", "r1", reg1);
-    emit("bl", fun);
-    emit("mov", res2, "r0");
-    emit("ldmfd", "sp!", "{r0-r7}");
+    
 }

@@ -65,9 +65,7 @@ public:
     bool isBaseType();
     bool isChar();
     bool isConst();
-    bool isArr();
     bool getLeft();
-    int getOffset();
     Var* getPointer();
     Var* getInit();
     int getVal();
@@ -114,5 +112,4 @@ public:
     Tag getType();
     bool getExtern();
     void printInterCode();
-    int getMaxDep();
 };

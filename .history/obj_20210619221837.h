@@ -1,7 +1,6 @@
 #pragma once
 #include "common.h"
 #include "symbol.h"
-#include "armplat.h"
 #include <cstring>
 #include <sstream>
 
@@ -43,9 +42,6 @@ public:
     //储存指令
     void strBase(string reg, string baseReg, string tmpReg, int offset, bool isChar); 
     void strVar(string reg, string tmpReg, Var* var);
-    //函数相关
-    void leaStack(string reg, int offset); //从栈中加载地址
-    void allocStack(Fun* fun, string tmpReg); //分配栈帧
-    void callFun(Fun* fun, string tmpReg); //调用函数
-    void callLibFun(string fun, string resReg, string reg1, string reg2); //系统自带函数
+    //函数调用
+    
 };

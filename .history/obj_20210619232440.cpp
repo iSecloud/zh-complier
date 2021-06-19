@@ -122,10 +122,8 @@ void Obj::ldrVar(string reg, Var* var)
         }
         else //局部变量通过fp查找
         {
-            if(isVar) 
-                ldrBase(reg, "fp", var->getOffset(), var->isChar());
-            else 
-                leaStack(reg, var->getOffset());
+            if(isVar) ldrBase(reg, "fp", var->getOffset(), var->isChar());
+            else //TODO 栈指针偏移
         }
     }
 }
@@ -143,7 +141,7 @@ void Obj::strBase(string reg, string baseReg, string tmpReg, int offset, bool is
         base += ", " + immNum(offset);
     else
     {
-        ldrImm(tmpReg, offset);
+        ldrImm(reg, offset);
         base += ", " + reg;
     }
     base = "[" + base + "]";
@@ -153,67 +151,28 @@ void Obj::strBase(string reg, string baseReg, string tmpReg, int offset, bool is
 
 void Obj::strVar(string reg, string tmpReg, Var* var)
 {
-    //保存寄存器值到变量
     if(!var) return;
-    //TODO 寄存器优化
-    bool isGlb = var->getOffset();
-    if(isGlb) //全局变量通过数据段查找
+    if(var->isConst()) //常量存储
     {
-        ldrFake(tmpReg, var->getName());
-        strBase(reg, tmpReg, tmpReg, 0, var->isChar());
+        if(var->isBaseType()) //数字或者字符
+            ldrImm(reg, var->getVal());
+        else //字符串
+            ldrFake(reg, var->getName());
     }
-    else //局部变量通过fp查找
-        strBase(reg, "fp", tmpReg, var->getOffset(), var->isChar());
-    //TODO 分割优化
-}
-
-void Obj::leaStack(string reg, int offset)
-{
-    if(!ARM::validConstExpr(offset))
+    else //变量存储
     {
-        ldrImm(reg, offset);
-        emit("add", reg, "fp", reg);
+        //TODO 寄存器优化
+        bool isGlb = var->getOffset();
+        bool isVar = !var->isArr();
+        if(isGlb) //全局变量通过数据段查找
+        {
+            ldrFake(reg, var->getName());
+            if(isVar) ldrBase(reg, reg, 0, var->isChar());
+        }
+        else //局部变量通过fp查找
+        {
+            if(isVar) ldrBase(reg, "fp", var->getOffset(), var->isChar());
+            else //TODO 栈指针偏移
+        }
     }
-    else
-        emit("add", reg, "fp", immNum(offset));
-}
-
-void Obj::allocStack(Fun* fun, string tmpReg)
-{
-    //TODO 考虑重定向
-    int base = ARM::stackBase;
-    int offset = fun->getMaxDep() - base;
-    // emit("stmfd", "sp!", "{fp,ip,lr,pc}");
-    // emit("sub", "fp", "ip", "#4");
-    if(!ARM::validConstExpr(offset))
-    {
-        ldrImm(tmpReg, offset);
-        emit("sub", "sp", "sp", tmpReg);
-    }
-    else
-        emit("sub", "sp", "sp", immNum(offset));
-}
-
-void Obj::callFun(Fun* fun, string tmpReg)
-{
-    string name = fun->getName();
-    emit("bl", name);
-    int offset = fun->getPara().size() * 4;
-    if(!ARM::validConstExpr(offset))
-    {
-        ldrImm(tmpReg, offset);
-        emit("add", "sp", "sp", tmpReg);
-    }
-    else
-        emit("add", "sp", "sp", immNum(offset));
-}
-
-void Obj::callLibFun(string fun, string res2, string reg0, string reg1)
-{
-    emit("stmfd", "sp!", "{r0-r7}");
-    emit("mov", "r0", reg0);
-    emit("mov", "r1", reg1);
-    emit("bl", fun);
-    emit("mov", res2, "r0");
-    emit("ldmfd", "sp!", "{r0-r7}");
 }

@@ -21,7 +21,7 @@ class Var
     int intVal; //int常量初值
     char charVal; //char常量初值
     string strVal; //str常量初值
-    string ptrVal; //字符指针初值 数据段索引
+    string ptrVal; //字符指针初值? 这是什么玩意儿?
     Var* ptr; //指针变量
 
     int size; //变量大小
@@ -65,12 +65,9 @@ public:
     bool isBaseType();
     bool isChar();
     bool isConst();
-    bool isArr();
     bool getLeft();
-    int getOffset();
     Var* getPointer();
     Var* getInit();
-    int getVal();
     void info(); //输出信息, 方便调试
 };
 
@@ -114,5 +111,4 @@ public:
     Tag getType();
     bool getExtern();
     void printInterCode();
-    int getMaxDep();
 };

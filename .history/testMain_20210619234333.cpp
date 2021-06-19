@@ -27,6 +27,6 @@ int main()
     stringstream ss;
     int a = -10;
     ss << a;
-    cout << ss.str();
+    cout >> ss;
     return 0;
 }

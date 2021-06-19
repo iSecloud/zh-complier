@@ -4,7 +4,6 @@
 #include "token.h"
 #include "common.h"
 #include "genir.h"
-#include "armplat.h"
 
 // ================================变量==============================
 void Var::toStringVar()
@@ -336,8 +335,7 @@ Fun::Fun(bool ext, Tag t, string name1, vector<Var* >&paraList)
     type = t;
     name = name1;
     paraVar = paraList;
-    curEsp = ARM::stackBase; //记录栈深
-    maxDep = ARM::stackBase;
+    curEsp = maxDep = 0; //记录栈深
     for(int i = 0, off = 4; i < paraVar.size(); i ++, off += 4)
         paraVar[i]->setOffset(off);
     //TODO 计算参数相对于栈帧基址的偏移值
@@ -444,9 +442,4 @@ void Fun::printInterCode()
     int codeNum = 0;
     for(auto i: incode.intercode)
         printf("Code %d ", ++ codeNum), i->toString();
-}
-
-int Fun::getMaxDep()
-{
-    return maxDep;
 }

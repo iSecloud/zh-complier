@@ -114,5 +114,4 @@ public:
     Tag getType();
     bool getExtern();
     void printInterCode();
-    int getMaxDep();
 };

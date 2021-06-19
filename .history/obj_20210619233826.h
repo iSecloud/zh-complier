@@ -45,7 +45,5 @@ public:
     void strVar(string reg, string tmpReg, Var* var);
     //函数相关
     void leaStack(string reg, int offset); //从栈中加载地址
-    void allocStack(Fun* fun, string tmpReg); //分配栈帧
-    void callFun(Fun* fun, string tmpReg); //调用函数
-    void callLibFun(string fun, string resReg, string reg1, string reg2); //系统自带函数
+    void allocStack(Fun* fun, string tmpReg);
 };

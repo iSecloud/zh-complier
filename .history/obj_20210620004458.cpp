@@ -214,6 +214,4 @@ void Obj::callLibFun(string fun, string res2, string reg0, string reg1)
     emit("mov", "r0", reg0);
     emit("mov", "r1", reg1);
     emit("bl", fun);
-    emit("mov", res2, "r0");
-    emit("ldmfd", "sp!", "{r0-r7}");
 }

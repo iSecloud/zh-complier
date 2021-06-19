@@ -445,8 +445,3 @@ void Fun::printInterCode()
     for(auto i: incode.intercode)
         printf("Code %d ", ++ codeNum), i->toString();
 }
-
-int Fun::getMaxDep()
-{
-    return maxDep;
-}
