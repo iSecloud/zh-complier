@@ -18,15 +18,6 @@ public:
     Quaternion(Operator op, Fun* fun, Var* result = NULL); //函数相关指令
     Quaternion(Operator op, Var* arg1 = NULL); //单参或无参指令
     Quaternion(Operator op, Quaternion* target, Var* arg1 = NULL, Var* arg2 = NULL); //跳转指令
-
-    Operator getOp();
-    string getLabel();
-    Fun* getFun();
-    Var* getResult();
-    Var* getArg1();
-    Var* getArg2();
-    Quaternion* getTarget();
-
     void toString(); //输出指令信息
 };
 

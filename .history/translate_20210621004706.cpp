@@ -64,23 +64,7 @@ void Translate::translate(Quaternion* code)
     }
     else if(op == OP_JT || op == OP_JF)
     {
-        obj.ldrVar("r8", code->getArg1());
-        obj.objCode("cmp", "r8", "#0");
-        if(op == OP_JT)
-            obj.objCode("bne", code->getTarget()->getLabel());
-        else 
-            obj.objCode("beq", code->getTarget()->getLabel());
-    }
-    else if(op == OP_ARG)
-    {
-        obj.ldrVar("r8", code->getArg1());
-        obj.objCode("stmfd", "sp!", "r8");
-    }
-    else if(op == OP_PROC || op == OP_CALL)
-    {
-        Fun* fun = code->getFun();
-        obj.callFun(fun, "r9");
-        if(op == OP_CALL) obj.strVar("r8", "r9", code->getResult())
+        obj.ldrVar("r8", code->getArg1())
     }
 }
 

@@ -20,12 +20,6 @@ public:
     Quaternion(Operator op, Quaternion* target, Var* arg1 = NULL, Var* arg2 = NULL); //跳转指令
 
     Operator getOp();
-    string getLabel();
-    Fun* getFun();
-    Var* getResult();
-    Var* getArg1();
-    Var* getArg2();
-    Quaternion* getTarget();
 
     void toString(); //输出指令信息
 };

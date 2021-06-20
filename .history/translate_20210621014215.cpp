@@ -79,8 +79,7 @@ void Translate::translate(Quaternion* code)
     else if(op == OP_PROC || op == OP_CALL)
     {
         Fun* fun = code->getFun();
-        obj.callFun(fun, "r9");
-        if(op == OP_CALL) obj.strVar("r8", "r9", code->getResult())
+        obj.callFun(fun, "r8");
     }
 }
 

@@ -84,11 +84,6 @@ Var* Quaternion::getArg2()
     return arg2;
 }
 
-Quaternion* Quaternion::getTarget()
-{
-    return target;
-}
-
 void Quaternion::toString()
 {
     //注意 string用%s输出时要用内置的c_str()转成char*来输出

@@ -14,6 +14,8 @@
         "iosfwd": "cpp",
         "type_traits": "cpp",
         "cstring": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "*.tcc": "cpp",
+        "istream": "cpp"
     }
 }

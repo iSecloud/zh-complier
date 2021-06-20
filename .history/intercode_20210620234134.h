@@ -22,10 +22,6 @@ public:
     Operator getOp();
     string getLabel();
     Fun* getFun();
-    Var* getResult();
-    Var* getArg1();
-    Var* getArg2();
-    Quaternion* getTarget();
 
     void toString(); //输出指令信息
 };

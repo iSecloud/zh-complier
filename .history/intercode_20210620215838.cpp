@@ -54,39 +54,9 @@ Quaternion::Quaternion(Operator op, Quaternion* target, Var* arg1, Var* arg2) //
     this->arg2 = arg2;
 }
 
-Operator Quaternion::getOp()
+void Quaternion::getOp()
 {
     return op;
-}
-
-string Quaternion::getLabel()
-{
-    return label;
-}
-
-Fun* Quaternion::getFun()
-{
-    return fun;
-}
-
-Var* Quaternion::getResult()
-{
-    return result;
-}
-
-Var* Quaternion::getArg1()
-{
-    return arg1;
-}
-
-Var* Quaternion::getArg2()
-{
-    return arg2;
-}
-
-Quaternion* Quaternion::getTarget()
-{
-    return target;
 }
 
 void Quaternion::toString()
