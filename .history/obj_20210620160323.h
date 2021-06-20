@@ -56,7 +56,7 @@ public:
     void initVar(string reg, string tmpReg, Var* var); //常量初始化
     void label(string name); //标签
     void comment(string str); //注释
-    void in_out(string reg0, string reg1, string reg2, Var* var, string op); //输入输出指令
+    void in_out(string reg0, string reg1, string reg2, Var* var); //输入输出指令
     void nop(); //占位指令
     void printObjCode(); //打印
 };

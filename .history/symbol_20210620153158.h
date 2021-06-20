@@ -68,7 +68,6 @@ public:
     bool isArr();
     bool isInitVar();
     bool getLeft();
-    string getPtrVal();
     int getOffset();
     Var* getPointer();
     Var* getInit();
@@ -115,6 +114,6 @@ public:
     vector<Var*> &getPara();
     Tag getType();
     bool getExtern();
+    void printInterCode();
     int getMaxDep();
-    void printInterCode();    
 };

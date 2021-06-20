@@ -1,5 +1,7 @@
 #pragma once
 #include "common.h"
+#include "symbol.h"
+#include "armplat.h"
 #include <cstring>
 #include <sstream>
 
@@ -35,7 +37,6 @@ public:
     //加载指令ldr
     void ldrImm(string reg, int num); //立即数加载到寄存器
     void ldrVar(string reg, Var* var); //变量加载到寄存器
-    void ldrLeaVar(string reg, Var* var); //变量地址加载到寄存器
     void ldrFake(string reg, string name); //伪指令LDR, LDR{cond} Rm, =addr
     void ldrBase(string reg, string baseReg, int offset, bool isChar); //寄存器基址寻址
     void ldrArg(Fun* fun); //加载参数
@@ -53,10 +54,9 @@ public:
     void logicNot(string resReg, string reg1);
     void cmp(string resReg, string reg1, string reg2, string cmp, string fcmp);
     //其他指令
-    void initVar(string reg, string tmpReg, Var* var); //常量初始化
+    void initVar(string reg, string tmpReg, Var* var);
     void label(string name); //标签
     void comment(string str); //注释
-    void in_out(string reg0, string reg1, string reg2, Var* var, string op); //输入输出指令
     void nop(); //占位指令
     void printObjCode(); //打印
 };

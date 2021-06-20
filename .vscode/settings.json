@@ -12,6 +12,8 @@
         "ostream": "cpp",
         "iostream": "cpp",
         "iosfwd": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "cstring": "cpp",
+        "regex": "cpp"
     }
 }

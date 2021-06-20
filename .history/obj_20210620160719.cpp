@@ -304,16 +304,12 @@ void Obj::in_out(string reg0, string reg1, string reg2, Var* var, string op)
     if(!offset)
     {
         if(op == "read") ldrFake(reg0, var->getName());
-        else ldrVar(reg0, var);
+        else ldrBase()
     }
-    else
-    {
-        if(op == "read") leaStack(reg0, offset);
-        else ldrVar(reg0, var);
-    }   
+    else   
+        leaStack(reg0, offset);
     emit("mov", reg1, reg0);
     ldrFake(reg2, SymTab::deciOut->getName());
     if(op == "read") emit("bl", "scanf");
     else emit("bl", "printf");
-    //Pro 是否需要寄存器保护
 }

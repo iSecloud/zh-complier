@@ -17,13 +17,12 @@ SymTab::SymTab()
     tk = new Num(0); zeroVar = new Var(tk); //delete tk;
     tk = new Num(1); oneVar = new Var(tk); //delete tk;
     tk = new Num(4); fourVar = new Var(tk); //delete tk;
-    tk = new Str("%d"); deciOut = new Var(tk);
+    tk = new Str("%d"); 
 
     addVar(voidVar);
     addVar(zeroVar);
     addVar(oneVar);
     addVar(fourVar);
-    addStr(deciOut);
 
     ir = NULL;
     curFun = NULL;

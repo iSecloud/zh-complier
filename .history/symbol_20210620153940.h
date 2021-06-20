@@ -115,6 +115,6 @@ public:
     vector<Var*> &getPara();
     Tag getType();
     bool getExtern();
+    void printInterCode();
     int getMaxDep();
-    void printInterCode();    
 };

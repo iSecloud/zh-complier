@@ -110,11 +110,6 @@ string Var::getStr()
     return strVal;
 }
 
-string Var::getPtrVal()
-{
-    return ptrVal;
-}
-
 Tag Var::getType()
 {
     return type;

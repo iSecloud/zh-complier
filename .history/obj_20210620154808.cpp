@@ -1,7 +1,4 @@
 #include "obj.h"
-#include "symbol.h"
-#include "symtab.h"
-#include "armplat.h"
 #define emit(args...) arm_code.push_back(new Arm(args))
 
 Arm::Arm(string op, string res, string arg1, string arg2, string addition)
@@ -138,9 +135,7 @@ void Obj::ldrLeaVar(string reg, Var* var)
 {
     int offset = var->getOffset();
     if(!offset) //全局变量
-        ldrFake(reg, var->getName());
-    else
-        leaStack(reg, var->getOffset());
+        ldrFake(reg, var->getName())
 }
 
 void Obj::ldrArg(Fun* fun)
@@ -296,24 +291,4 @@ void Obj::initVar(string reg, string tmpReg, Var* var)
     else 
         ldrFake(reg, var->getPtrVal());
     strVar(reg, tmpReg, var);
-}
-
-void Obj::in_out(string reg0, string reg1, string reg2, Var* var, string op)
-{
-    int offset = var->getOffset();
-    if(!offset)
-    {
-        if(op == "read") ldrFake(reg0, var->getName());
-        else ldrVar(reg0, var);
-    }
-    else
-    {
-        if(op == "read") leaStack(reg0, offset);
-        else ldrVar(reg0, var);
-    }   
-    emit("mov", reg1, reg0);
-    ldrFake(reg2, SymTab::deciOut->getName());
-    if(op == "read") emit("bl", "scanf");
-    else emit("bl", "printf");
-    //Pro 是否需要寄存器保护
 }

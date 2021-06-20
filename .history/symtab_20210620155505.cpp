@@ -23,7 +23,7 @@ SymTab::SymTab()
     addVar(zeroVar);
     addVar(oneVar);
     addVar(fourVar);
-    addStr(deciOut);
+    addVar(deciOut)
 
     ir = NULL;
     curFun = NULL;
