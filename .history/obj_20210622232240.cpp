@@ -298,22 +298,22 @@ void Obj::initVar(string reg, string tmpReg, Var* var)
     strVar(reg, tmpReg, var);
 }
 
-void Obj::in_out(string reg0, string reg1, string reg2, Var* var, Operator op)
+void Obj::in_out(string reg0, string reg1, string reg2, Var* var, string op)
 {
     int offset = var->getOffset();
     if(!offset)
     {
-        if(op == OP_READ) ldrFake(reg0, var->getName());
+        if(op == "read") ldrFake(reg0, var->getName());
         else ldrVar(reg0, var);
     }
     else
     {
-        if(op == OP_READ) leaStack(reg0, offset);
+        if(op == "read") leaStack(reg0, offset);
         else ldrVar(reg0, var);
     }   
     ldrFake(reg2, SymTab::deciOut->getName());
     emit("mov", reg1, reg0);
-    if(op == OP_READ) emit("bl", "scanf");
+    if(op == "read") emit("bl", "scanf");
     else emit("bl", "printf");
     //Pro 是否需要寄存器保护
 }

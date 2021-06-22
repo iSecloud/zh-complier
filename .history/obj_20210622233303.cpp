@@ -313,7 +313,7 @@ void Obj::in_out(string reg0, string reg1, string reg2, Var* var, Operator op)
     }   
     ldrFake(reg2, SymTab::deciOut->getName());
     emit("mov", reg1, reg0);
-    if(op == OP_READ) emit("bl", "scanf");
+    if(op == "read") emit("bl", "scanf");
     else emit("bl", "printf");
     //Pro 是否需要寄存器保护
 }

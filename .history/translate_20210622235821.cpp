@@ -96,8 +96,7 @@ void Translate::translate(Quaternion* code)
         //运算符
         Var* res = code->getResult();
         Var* arg1 = code->getArg1();
-        Var* arg2 = code->getArg2();
-        //先读取可能出现的变量    
+        Var* arg2 = code->getArg2();    
         if(arg1 != NULL) obj.ldrVar("r8", arg1);
         if(arg2 != NULL) obj.ldrVar("r9", arg2);
         
@@ -122,11 +121,8 @@ void Translate::translate(Quaternion* code)
         else if(op == OP_EQU) obj.cmp("r8", "r8", "r9", "eq", "ne");
         else if(op == OP_NEQU) obj.cmp("r8", "r8", "r9", "ne", "eq");
         else if(op == OP_LEA) obj.ldrLeaVar("r8", arg1);
-        else if(op == OP_GET) obj.ldrBase("r8", "r8", 0, res->isChar());
-        //回存结果
-        obj.strVar("r8", "r9", res);
+        else if(op == OP_GET) obj.ldrVar
     }
-
 }
 
 void Translate::transArm()

@@ -96,37 +96,34 @@ void Translate::translate(Quaternion* code)
         //运算符
         Var* res = code->getResult();
         Var* arg1 = code->getArg1();
-        Var* arg2 = code->getArg2();
-        //先读取可能出现的变量    
-        if(arg1 != NULL) obj.ldrVar("r8", arg1);
-        if(arg2 != NULL) obj.ldrVar("r9", arg2);
+        Var* arg2 = code->getArg2();    
+        obj.ldrVar("r8", arg1);
+        obj.ldrVar("r9", arg2);
         
         if(op == OP_ASSIGN); //空语句
-        else if(op == OP_ADD) obj.objCode("add", "r8", "r8", "r9");
-        else if(op == OP_SUB) obj.objCode("sub", "r8", "r8", "r9");
-        else if(op == OP_MUL) obj.objCode("mul", "r8", "r8", "r9");
-        else if(op == OP_DIV) obj.callLibFun("__divsi3", "r8", "r8", "r9");
-        else if(op == OP_MOD) obj.callLibFun("__modsi3", "r8", "r8", "r9");
-        else if(op == OP_NEG) obj.objCode("rsb", "r8", "r8", "#0");
-        else if(op == OP_AND) obj.objCode("and", "r8", "r8", "r9");
-        else if(op == OP_OR) obj.objCode("oor", "r8", "r8", "r9");
-        else if(op == OP_XOR) obj.objCode("eor", "r8", "r8", "r9");
-        else if(op == OP_INV) obj.objCode("mvn", "r8", "r8");
-        else if(op == OP_AAND) obj.logicAnd("r8", "r8", "r9");
-        else if(op == OP_OOR) obj.logicOr("r8", "r8", "r9");
-        else if(op == OP_NOT) obj.logicNot("r8", "r8");
-        else if(op == OP_GE) obj.cmp("r8", "r8", "r9", "ge", "lt");
-        else if(op == OP_GT) obj.cmp("r8", "r8", "r9", "gt", "le");
-        else if(op == OP_LE) obj.cmp("r8", "r8", "r9", "le", "gt");
-        else if(op == OP_LT) obj.cmp("r8", "r8", "r9", "lt", "ge");
-        else if(op == OP_EQU) obj.cmp("r8", "r8", "r9", "eq", "ne");
-        else if(op == OP_NEQU) obj.cmp("r8", "r8", "r9", "ne", "eq");
-        else if(op == OP_LEA) obj.ldrLeaVar("r8", arg1);
-        else if(op == OP_GET) obj.ldrBase("r8", "r8", 0, res->isChar());
-        //回存结果
-        obj.strVar("r8", "r9", res);
+        else if(op == OP_ADD)
+            obj.objCode("add", "r8", "r8", "r9");
+        else if(op == OP_SUB)
+            obj.objCode("sub", "r8", "r8", "r9");
+        else if(op == OP_MUL)
+            obj.objCode("mul", "r8", "r8", "r9");
+        else if(op == OP_DIV)
+            obj.callLibFun("__divsi3", "r8", "r8", "r9");
+        else if(op == OP_MOD)
+            obj.callLibFun("__modsi3", "r8", "r8", "r9");
+        else if(op == OP_NEG)
+            obj.objCode("rsb", "r8", "r8", "#0");
+        else if(op == OP_AND)
+            obj.objCode("and", "r8", "r8", "r9");
+        else if(op == OP_OR)
+            obj.objCode("oor", "r8", "r8", "r9");
+        else if(op == OP_XOR)
+            obj.objCode("eor", "r8", "r8", "r9");
+        else if(op == OP_INV)
+            obj.objCode("mvn", "r8", "r8");
+        else if(op == OP_AAND)
+            obj.logicAnd("r8", "r8", "r9")
     }
-
 }
 
 void Translate::transArm()
