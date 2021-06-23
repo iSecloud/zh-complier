@@ -153,5 +153,5 @@ void InterCode::addQuaternion(Quaternion* code)
 
 vector<Quaternion*>& InterCode::getInterCode()
 {
-    return intercode;
+    
 }

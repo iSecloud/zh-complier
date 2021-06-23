@@ -5,8 +5,6 @@
 #include "common.h"
 #include "genir.h"
 #include "armplat.h"
-#include "obj.h"
-#include "translate.h"
 
 // ================================变量==============================
 void Var::toStringVar()
@@ -142,15 +140,8 @@ string Var::getRawStr()
     string s = "";
     for(int i = 0; i < strVal.size(); i ++)
     {
-        if(strVal[i] == '\n') s.append("\\n");
-        else if(strVal[i] == '\t') s.append("\\t");
-        else if(strVal[i] == '\\') s.append("\\\\");
-        else if(strVal[i] == '\"') s.append("\\\"");
-        else if(strVal[i] == '\0') s.append("\\000");
-        else s.push_back(strVal[i]);
+
     }
-    s.append("\\000"); //end符
-    return s;
 }
 
 void Var::info()
@@ -477,14 +468,4 @@ void Fun::printInterCode()
 int Fun::getMaxDep()
 {
     return maxDep;
-}
-
-void Fun::getObjCode()
-{
-    //TODO 中间代码优化
-    vector<Quaternion*> intercode = incode.getInterCode();
-    Obj obj;
-    Translate translate(intercode, obj);
-    translate.transArm();
-    obj.printObjCode();
 }

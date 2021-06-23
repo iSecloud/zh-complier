@@ -5,8 +5,6 @@
 #include "common.h"
 #include "genir.h"
 #include "armplat.h"
-#include "obj.h"
-#include "translate.h"
 
 // ================================变量==============================
 void Var::toStringVar()
@@ -484,7 +482,4 @@ void Fun::getObjCode()
     //TODO 中间代码优化
     vector<Quaternion*> intercode = incode.getInterCode();
     Obj obj;
-    Translate translate(intercode, obj);
-    translate.transArm();
-    obj.printObjCode();
 }

@@ -485,6 +485,4 @@ void Fun::getObjCode()
     vector<Quaternion*> intercode = incode.getInterCode();
     Obj obj;
     Translate translate(intercode, obj);
-    translate.transArm();
-    obj.printObjCode();
 }

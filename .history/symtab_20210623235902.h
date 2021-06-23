@@ -50,8 +50,6 @@ public:
     vector<string> &getFunList();
     void setIR(GenIR *ir);
     Fun* getCurFun();
-    vector<Var*> getGlbVar();
     void printInterInfo();
-    void genSegment();
-    void genAssemble();
+    void genSegment(FILE* file);
 };

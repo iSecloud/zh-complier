@@ -37,6 +37,6 @@ public:
     vector<Quaternion*> intercode;
     InterCode();
     ~InterCode();
-    vector<Quaternion*>& getInterCode();
+    void getInterCode();
     void addQuaternion(Quaternion* code); //添加代码
 };

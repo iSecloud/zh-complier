@@ -222,15 +222,11 @@ vector<Var*> SymTab::getGlbVar()
     vector<Var*> glbVar;
     for(auto vars: varTab)
     {
-        vector<Var*> &varList = *vars.second;
-        for(auto var: varList)
+        for(auto var: (*vars))
         {
-            if(var->getName()[0] == '<') continue;
-            //全局变量不会重名
-            if(!var->getOffset()) glbVar.push_back(var); 
+
         }
     }
-    return glbVar;
 }
 
 void SymTab::printInterInfo()
@@ -240,7 +236,7 @@ void SymTab::printInterInfo()
     printf("-------------------------------------\n");
 }
 
-void SymTab::genSegment()
+void SymTab::genSegment(FILE* file)
 {
     //字符串常量放在rotate段
     printf(".section .rotate\n");
@@ -251,37 +247,5 @@ void SymTab::genSegment()
         printf("\t .ascii \"%s\"\n", str->getRawStr().c_str());
     }
     //全局变量放在.data段
-    printf(".data\n");
-    vector<Var*> glbVar = getGlbVar();
-    for(auto var: glbVar)
-    {
-        printf("\t.global %s\n", var->getName().c_str());
-        //讨论是否初始化
-        if(var->isInitVar())
-        {
-            printf("%s:\n", var->getName().c_str());
-            if(var->isBaseType()) //不是指针变量
-            {
-                if(var->isChar())
-                    printf("\t.byte %d\n", var->getVal());
-                else 
-                    printf("\t.word %d\n", var->getVal());
-            }
-            else
-                printf("\t.word %s\n", var->getPtrVal().c_str());
-        }
-        else //.comm var,size
-            printf("\t.comm %s,%d\n", var->getName().c_str(), var->getSize());
-    }
-}
-
-void SymTab::genAssemble()
-{
-    genSegment(); //生成数据段
-    printf(".text\n"); //生成代码段
-    for(auto f: funTab)
-    {
-        Fun* fun = f.second;
-        fun->getObjCode(); //生成汇编代码
-    }
+    
 }

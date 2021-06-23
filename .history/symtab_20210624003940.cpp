@@ -240,7 +240,7 @@ void SymTab::printInterInfo()
     printf("-------------------------------------\n");
 }
 
-void SymTab::genSegment()
+void SymTab::genSegment(FILE* file)
 {
     //字符串常量放在rotate段
     printf(".section .rotate\n");
@@ -272,16 +272,5 @@ void SymTab::genSegment()
         }
         else //.comm var,size
             printf("\t.comm %s,%d\n", var->getName().c_str(), var->getSize());
-    }
-}
-
-void SymTab::genAssemble()
-{
-    genSegment(); //生成数据段
-    printf(".text\n"); //生成代码段
-    for(auto f: funTab)
-    {
-        Fun* fun = f.second;
-        fun->getObjCode(); //生成汇编代码
     }
 }

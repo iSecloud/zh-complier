@@ -278,10 +278,10 @@ void SymTab::genSegment()
 void SymTab::genAssemble()
 {
     genSegment(); //生成数据段
-    printf(".text\n"); //生成代码段
+    printf(".text\n");
     for(auto f: funTab)
     {
         Fun* fun = f.second;
-        fun->getObjCode(); //生成汇编代码
+        fun->getObjCode();
     }
 }

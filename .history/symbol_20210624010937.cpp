@@ -484,7 +484,5 @@ void Fun::getObjCode()
     //TODO 中间代码优化
     vector<Quaternion*> intercode = incode.getInterCode();
     Obj obj;
-    Translate translate(intercode, obj);
-    translate.transArm();
-    obj.printObjCode();
+    Translate translate(intercode, obj)
 }

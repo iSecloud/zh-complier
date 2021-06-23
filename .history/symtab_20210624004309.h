@@ -52,6 +52,6 @@ public:
     Fun* getCurFun();
     vector<Var*> getGlbVar();
     void printInterInfo();
-    void genSegment();
+    void genSegment(FILE* file);
     void genAssemble();
 };
