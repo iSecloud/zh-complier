@@ -1,26 +1,74 @@
 Begin to Analysis....
-----------------exgcd------------
-Code 1 OP_ENTRY exgcd
-Code 2 OP_RETX return value is 0 and the return point is @L1
-Code 3 OP_LABEL @L1
-Code 4 OP_EXIT exgcd
+----------------add------------
+Code 1 OP_ENTRY add
+Code 2 OP_DEC var is .L2
+Code 3 OP_ADD .L2=x+y
+Code 4 OP_RETX return value is .L2 and the return point is .L1
+Code 5 OP_LABEL .L1
+Code 6 OP_EXIT add
 -------------------------------------
-----------------main------------
-Code 1 OP_ENTRY main
-Code 2 OP_ARG push arg 4
-Code 3 OP_ARG push arg 3
-Code 4 OP_ARG push arg 2
-Code 5 OP_ARG push arg 1
-Code 6 OP_CALL @L3=exgcd
-Code 7 OP_DEC var is @L3
-Code 8 OP_DEC var is a
-Code 9 OP_ASSIGN a=@L3
-Code 10 OP_RETX return value is 0 and the return point is @L2
-Code 11 OP_LABEL @L2
-Code 12 OP_EXIT main
--------------------------------------
-Error 1: the 13 row, the 3 col: Missing type definition
-var size = 7
-<void>, <int>, a, b, x, y, @L3, 
+var size = 9
+<void>, <int>, x, y, .L2, a, b, .L4, c, 
 fun size = 2
-exgcd, main, 
+add, main, ----------------main------------
+Code 1 OP_ENTRY main
+Code 2 OP_DEC var is a
+Code 3 OP_DEC var is b
+Code 4 OP_ASSIGN a=1
+Code 5 OP_ASSIGN b=2
+Code 6 OP_ARG push arg b
+Code 7 OP_ARG push arg a
+Code 8 OP_CALL .L4=add
+Code 9 OP_DEC var is .L4
+Code 10 OP_DEC var is c
+Code 11 OP_ASSIGN c=.L4
+Code 12 OP_RETX return value is 0 and the return point is .L3
+Code 13 OP_LABEL .L3
+Code 14 OP_EXIT main
+-------------------------------------
+.section .rotate
+.L0
+	.ascii "%d\000"
+.data
+.text
+	# Enter the fun main
+	mov ip, sp
+	stmfd sp!, {fp, ip, lr, pc}
+	sub fp, ip, #4
+	# Allocate the stack space
+	sub sp, sp, #16
+	# Load the args
+	# Enter the fun block
+	mov r8, #1
+	str r8, [fp, #-16]
+	mov r8, #2
+	str r8, [fp, #-20]
+	ldr r8, [fp, #-20]
+	stmfd sp!, r8
+	ldr r8, [fp, #-16]
+	stmfd sp!, r8
+	bl add
+	add sp, sp, #8
+	str r8, [fp, #-24]
+	ldr r8, [fp, #-24]
+	str r8, [fp, #-28]
+	b .L3
+	.L3 :
+	# Exit the fun main
+	ldmea fp, {fp, sp, pc}
+	# Enter the fun add
+	mov ip, sp
+	stmfd sp!, {fp, ip, lr, pc}
+	sub fp, ip, #4
+	# Allocate the stack space
+	sub sp, sp, #4
+	# Load the args
+	# Enter the fun block
+	ldr r8, [fp, #4]
+	ldr r9, [fp, #8]
+	add r8, r8, r9
+	str r8, [fp, #-16]
+	b .L1
+	.L1 :
+	# Exit the fun add
+	ldmea fp, {fp, sp, pc}

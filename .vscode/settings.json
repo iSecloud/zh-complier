@@ -16,6 +16,9 @@
         "cstring": "cpp",
         "regex": "cpp",
         "*.tcc": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "cstdio": "cpp",
+        "charconv": "cpp",
+        "memory": "cpp"
     }
 }
