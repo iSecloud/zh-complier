@@ -7,55 +7,170 @@ Code 4 OP_RETX return value is .L2 and the return point is .L1
 Code 5 OP_LABEL .L1
 Code 6 OP_EXIT add
 -------------------------------------
-var size = 9
-<void>, <int>, x, y, .L2, a, b, .L4, c, 
-fun size = 2
-add, main, ----------------main------------
+----------------gcd------------
+Code 1 OP_ENTRY gcd
+Code 2 OP_DEC var is .L4
+Code 3 OP_NOT .L4=!b
+Code 4 OP_JF if not .L4 then goto .L5
+Code 5 OP_RETX return value is a and the return point is .L3
+Code 6 OP_LABEL .L5
+Code 7 OP_DEC var is .L6
+Code 8 OP_MOD .L6=amodb
+Code 9 OP_ARG push arg .L6
+Code 10 OP_ARG push arg b
+Code 11 OP_CALL .L7=gcd
+Code 12 OP_DEC var is .L7
+Code 13 OP_RETX return value is .L7 and the return point is .L3
+Code 14 OP_LABEL .L3
+Code 15 OP_EXIT gcd
+-------------------------------------
+var size = 23
+<void>, <int>, x, y, .L2, a, b, .L4, .L6, .L7, n, num, i, .L12, .L14, .L15, tot, .L16, g, .L18, .L17, .L19, .L20, 
+fun size = 3
+add, gcd, main, ----------------main------------
 Code 1 OP_ENTRY main
-Code 2 OP_DEC var is a
-Code 3 OP_DEC var is b
-Code 4 OP_ASSIGN a=1
-Code 5 OP_ASSIGN b=2
-Code 6 OP_ARG push arg b
-Code 7 OP_ARG push arg a
-Code 8 OP_CALL .L4=add
-Code 9 OP_DEC var is .L4
-Code 10 OP_DEC var is c
-Code 11 OP_ASSIGN c=.L4
-Code 12 OP_RETX return value is 0 and the return point is .L3
-Code 13 OP_LABEL .L3
-Code 14 OP_EXIT main
+Code 2 OP_DEC var is n
+Code 3 OP_DEC var is x
+Code 4 OP_DEC var is y
+Code 5 OP_DEC var is num
+Code 6 OP_DEC var is i
+Code 7 OP_LABEL .L9
+Code 8 OP_DEC var is .L12
+Code 9 OP_LE .L12=i<=n
+Code 10 OP_JF if not .L12 then goto .L10
+Code 11 OP_JMP goto .L11
+Code 12 OP_LABEL .L13
+Code 13 OP_DEC var is .L14
+Code 14 OP_ASSIGN .L14=i
+Code 15 OP_ADD i=i+1
+Code 16 OP_JMP goto .L9
+Code 17 OP_LABEL .L11
+Code 18 OP_READ read the x
+Code 19 OP_READ read the y
+Code 20 OP_ARG push arg y
+Code 21 OP_ARG push arg x
+Code 22 OP_CALL .L15=add
+Code 23 OP_DEC var is .L15
+Code 24 OP_DEC var is tot
+Code 25 OP_ASSIGN tot=.L15
+Code 26 OP_ARG push arg y
+Code 27 OP_ARG push arg x
+Code 28 OP_CALL .L16=gcd
+Code 29 OP_DEC var is .L16
+Code 30 OP_DEC var is g
+Code 31 OP_ASSIGN g=.L16
+Code 32 OP_WRITE write the tot
+Code 33 OP_WRITE write the g
+Code 34 OP_DEC var is .L18
+Code 35 OP_MUL .L18=i*4
+Code 36 OP_DEC var is .L17
+Code 37 OP_ADD .L17=.L18+num
+Code 38 OP_DEC var is .L19
+Code 39 OP_DEC var is .L20
+Code 40 OP_ADD .L20=tot+g
+Code 41 OP_SET *.L17=.L20
+Code 42 OP_JMP goto .L13
+Code 43 OP_LABEL .L10
+Code 44 OP_RETX return value is 0 and the return point is .L8
+Code 45 OP_LABEL .L8
+Code 46 OP_EXIT main
 -------------------------------------
 .section .rotate
-.L0
+.L0:
 	.ascii "%d\000"
 .data
 .text
+	.global main
+main:
 	# Enter the fun main
 	mov ip, sp
 	stmfd sp!, {fp, ip, lr, pc}
 	sub fp, ip, #4
 	# Allocate the stack space
-	sub sp, sp, #16
+	sub sp, sp, #456
 	# Load the args
 	# Enter the fun block
-	mov r8, #1
+	mov r8, #10
 	str r8, [fp, #-16]
-	mov r8, #2
-	str r8, [fp, #-20]
-	ldr r8, [fp, #-20]
+	mov r8, #1
+	str r8, [fp, #-428]
+	.L9 :
+	ldr r8, [fp, #-428]
+	ldr r9, [fp, #-16]
+	cmp r8, r9
+	movle r8, #1
+	movgt r8, #0
+	str r8, [fp, #-432]
+	ldr r8, [fp, #-432]
+	cmp r8, #0
+	beq .L10
+	b .L11
+	.L13 :
+	ldr r8, [fp, #-428]
+	str r8, [fp, #-436]
+	ldr r8, [fp, #-428]
+	mov r9, #1
+	add r8, r8, r9
+	str r8, [fp, #-428]
+	b .L9
+	.L11 :
+	add r8, fp, #-20
+	ldr r10, =.L0
+	mov r9, r8
+	bl scanf
+	add r8, fp, #-24
+	ldr r10, =.L0
+	mov r9, r8
+	bl scanf
+	ldr r8, [fp, #-24]
 	stmfd sp!, r8
-	ldr r8, [fp, #-16]
+	ldr r8, [fp, #-20]
 	stmfd sp!, r8
 	bl add
 	add sp, sp, #8
-	str r8, [fp, #-24]
+	str r8, [fp, #-440]
+	ldr r8, [fp, #-440]
+	str r8, [fp, #-444]
 	ldr r8, [fp, #-24]
-	str r8, [fp, #-28]
-	b .L3
-	.L3 :
+	stmfd sp!, r8
+	ldr r8, [fp, #-20]
+	stmfd sp!, r8
+	bl gcd
+	add sp, sp, #8
+	str r8, [fp, #-448]
+	ldr r8, [fp, #-448]
+	str r8, [fp, #-452]
+	ldr r8, [fp, #-444]
+	ldr r10, =.L0
+	mov r9, r8
+	bl printf
+	ldr r8, [fp, #-452]
+	ldr r10, =.L0
+	mov r9, r8
+	bl printf
+	ldr r8, [fp, #-428]
+	mov r9, #4
+	mul r8, r8, r9
+	str r8, [fp, #-456]
+	ldr r8, [fp, #-456]
+	add r9, fp, #-424
+	add r8, r8, r9
+	str r8, [fp, #-460]
+	ldr r8, [fp, #-444]
+	ldr r9, [fp, #-452]
+	add r8, r8, r9
+	str r8, [fp, #-468]
+	ldr r8, [fp, #-468]
+	ldr r9, [fp, #-460]
+	str r8, [r9, #0]
+	b .L13
+	.L10 :
+	b .L8
+	.L8 :
 	# Exit the fun main
 	ldmea fp, {fp, sp, pc}
+	.global add
+add:
 	# Enter the fun add
 	mov ip, sp
 	stmfd sp!, {fp, ip, lr, pc}
@@ -71,4 +186,44 @@ Code 14 OP_EXIT main
 	b .L1
 	.L1 :
 	# Exit the fun add
+	ldmea fp, {fp, sp, pc}
+	.global gcd
+gcd:
+	# Enter the fun gcd
+	mov ip, sp
+	stmfd sp!, {fp, ip, lr, pc}
+	sub fp, ip, #4
+	# Allocate the stack space
+	sub sp, sp, #8
+	# Load the args
+	# Enter the fun block
+	ldr r8, [fp, #8]
+	cmp r8, #0
+	moveq r8, #1
+	movne r8, #0
+	str r8, [fp, #-16]
+	ldr r8, [fp, #-16]
+	cmp r8, #0
+	beq .L5
+	b .L3
+	.L5 :
+	ldr r8, [fp, #4]
+	ldr r9, [fp, #8]
+	stmfd sp!, {r0-r7}
+	mov r0, r8
+	mov r1, r9
+	bl __modsi3
+	mov r8, r0
+	ldmfd sp!, {r0-r7}
+	str r8, [fp, #-16]
+	ldr r8, [fp, #-16]
+	stmfd sp!, r8
+	ldr r8, [fp, #8]
+	stmfd sp!, r8
+	bl gcd
+	add sp, sp, #8
+	str r8, [fp, #-20]
+	b .L3
+	.L3 :
+	# Exit the fun gcd
 	ldmea fp, {fp, sp, pc}

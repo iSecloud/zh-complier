@@ -484,7 +484,7 @@ void Fun::getObjCode()
 {
     //TODO 中间代码优化
     printf("\t.global %s\n", name.c_str());
-    printf("%s:\n", name.c_str());
+    printf("%s:\n", name.c_str())
     vector<Quaternion*> intercode = incode.getInterCode();
     Obj obj;
     Translate translate(intercode, obj);
