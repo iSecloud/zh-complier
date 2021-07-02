@@ -34,8 +34,6 @@ void Translate::translate(Quaternion* code)
         Fun* fun = code->getFun();
         obj.comment("Exit the fun " + fun->getName());
         //TODO 函数重定向
-        if(fun->getName() == "main") 
-            obj.objCode("mov", "r0", "r8");
         obj.objCode("ldmea", "fp", "{fp, sp, pc}");
         //obj.objCode("bx", "lr") 跳转
     }
@@ -86,8 +84,7 @@ void Translate::translate(Quaternion* code)
     }
     else if(op == OP_RET || op == OP_RETX)
     {
-        if(op == OP_RETX) 
-            obj.ldrVar("r8", code->getArg1());
+        if(op == OP_RETX) obj.ldrVar("r8", code->getArg1());
         string point = code->getTarget()->getLabel();
         obj.objCode("b", point); //不用记录参数x 因为结果已经保存到寄存器了
     }

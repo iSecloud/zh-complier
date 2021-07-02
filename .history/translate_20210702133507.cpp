@@ -34,8 +34,6 @@ void Translate::translate(Quaternion* code)
         Fun* fun = code->getFun();
         obj.comment("Exit the fun " + fun->getName());
         //TODO 函数重定向
-        if(fun->getName() == "main") 
-            obj.objCode("mov", "r0", "r8");
         obj.objCode("ldmea", "fp", "{fp, sp, pc}");
         //obj.objCode("bx", "lr") 跳转
     }

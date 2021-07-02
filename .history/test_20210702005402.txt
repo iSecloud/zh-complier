@@ -1,0 +1,26 @@
+//这段代码并没有什么实际的含义
+int add(int x, int y)
+{
+    return x + y;
+}
+
+int gcd(int a, int b)
+{
+    if(!b)
+    {
+        return a;
+    }
+    return gcd(b, a % b);
+}
+
+int main()
+{
+    int n = 10, x, y, num[100];
+    for(int i = 1; i <= n; i ++)
+    {
+        int tot = add(x, y);
+        int g = gcd(x, y);
+		num[i] = tot + g;
+    }
+    return 0;
+}

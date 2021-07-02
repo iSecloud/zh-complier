@@ -1,0 +1,21 @@
+int glba = 1;
+int glbb = 2;
+char *s = "Helloworld";
+int num[100];
+
+int add(int x, int y)
+{ 
+    return x + y + x * y;
+}
+
+int main()
+{
+    int n;
+    read(n);
+    num[0] = 1; num[1] = 2;
+    for(int i = 2; i <= n; i ++)
+    {
+        num[i] = num[i - 1] + num[i - 2];
+    }
+    return *s;
+}
