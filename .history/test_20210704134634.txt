@@ -1,0 +1,7 @@
+int main()
+{
+    char *s = "HelloWorld!";
+    char x = s[5];
+    int cx = 10;
+    return cx;
+}

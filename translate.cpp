@@ -22,7 +22,7 @@ void Translate::translate(Quaternion* code)
         obj.objCode("mov", "ip", "sp");
         obj.objCode("stmfd", "sp!", "{fp, ip, lr, pc}"); //将这四个寄存器压栈
         //TODO 函数重定向 
-        obj.objCode("sub", "fp", "ip", "#4"); //使fp指向当前函数栈帧的栈底
+        obj.objCode("sub", "fp", "ip", "#4"); //使fp指向当前函数栈帧的栈顶
         obj.comment("Allocate the stack space");
         obj.allocStack(fun, "r8");//分配函数栈帧
         obj.comment("Load the args");

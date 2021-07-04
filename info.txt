@@ -1,0 +1,54 @@
+Begin to Analysis....
+var size = 8
+<void>, <int>, b, c, .L4, .L6, .L8, .L9, 
+fun size = 1
+main, 
+-----------Unoptimized code----------
+----------------main------------
+Code 1 OP_ENTRY main
+Code 2 OP_DEC var is b
+Code 3 OP_DEC var is c
+Code 4 OP_JNE if b!=1 then goto .L3
+Code 5 OP_DEC var is .L4
+Code 6 OP_ASSIGN .L4=c
+Code 7 OP_ADD c=c+1
+Code 8 OP_JMP goto .L2
+Code 9 OP_LABEL .L3
+Code 10 OP_JNE if b!=2 then goto .L5
+Code 11 OP_DEC var is .L6
+Code 12 OP_ASSIGN .L6=c
+Code 13 OP_SUB c=c-1
+Code 14 OP_JMP goto .L2
+Code 15 OP_LABEL .L5
+Code 16 OP_JNE if b!=3 then goto .L7
+Code 17 OP_DEC var is .L8
+Code 18 OP_MUL .L8=c*2
+Code 19 OP_ASSIGN c=.L8
+Code 20 OP_JMP goto .L2
+Code 21 OP_LABEL .L7
+Code 22 OP_DEC var is .L9
+Code 23 OP_MOD .L9=cmod3
+Code 24 OP_ASSIGN c=.L9
+Code 25 OP_LABEL .L2
+Code 26 OP_LABEL .L1
+Code 27 OP_EXIT main
+-------------------------------------
+Is it optimized? 0 NO 1 YES
+-----------Optimized code----------
+----------------main------------
+Code 1 OP_ENTRY main
+Code 2 OP_DEC var is b
+Code 3 OP_DEC var is c
+Code 4 OP_JMP goto .L3
+Code 5 OP_LABEL .L3
+Code 6 OP_JMP goto .L5
+Code 7 OP_LABEL .L5
+Code 8 OP_JMP goto .L7
+Code 9 OP_LABEL .L7
+Code 10 OP_DEC var is .L9
+Code 11 OP_ASSIGN .L9=0
+Code 12 OP_ASSIGN c=0
+Code 13 OP_LABEL .L2
+Code 14 OP_LABEL .L1
+Code 15 OP_EXIT main
+-------------------------------------

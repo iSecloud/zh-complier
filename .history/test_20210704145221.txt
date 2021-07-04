@@ -1,0 +1,16 @@
+int main()
+{
+	int b = 5, c = 0;	
+	switch(b)
+	{
+		case 1: c ++; break;
+		case 2: c --; break;
+		case 3: c = c * 2; break;
+		default: c = c % 3;
+	}
+    for(int i = 1; i <= 1; i ++)
+    {
+        int c;
+    }
+	return 0;
+}

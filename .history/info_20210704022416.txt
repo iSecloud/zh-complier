@@ -1,0 +1,50 @@
+Begin to Analysis....
+var size = 9
+<void>, <int>, num, p, .L3, .L2, .L4, n, k, 
+fun size = 2
+add, main, 
+-----------Unoptimized code----------
+----------------main------------
+Code 1 OP_ENTRY main
+Code 2 OP_DEC var is n
+Code 3 OP_DEC var is k
+Code 4 OP_ARG push arg num
+Code 5 OP_PROC call function add
+Code 6 OP_RETX return value is n and the return point is .L5
+Code 7 OP_LABEL .L5
+Code 8 OP_EXIT main
+-------------------------------------
+----------------add------------
+Code 1 OP_ENTRY add
+Code 2 OP_DEC var is .L3
+Code 3 OP_MUL .L3=5*4
+Code 4 OP_DEC var is .L2
+Code 5 OP_ADD .L2=.L3+p
+Code 6 OP_DEC var is .L4
+Code 7 OP_SET *.L2=3
+Code 8 OP_LABEL .L1
+Code 9 OP_EXIT add
+-------------------------------------
+Is it optimized? 0 NO 1 YES
+-----------Optimized code----------
+----------------main------------
+Code 1 OP_ENTRY main
+Code 2 OP_DEC var is n
+Code 3 OP_DEC var is k
+Code 4 OP_ARG push arg num
+Code 5 OP_PROC call function add
+Code 6 OP_RETX return value is n and the return point is .L5
+Code 7 OP_LABEL .L5
+Code 8 OP_EXIT main
+-------------------------------------
+----------------add------------
+Code 1 OP_ENTRY add
+Code 2 OP_DEC var is .L3
+Code 3 OP_ASSIGN .L3=20
+Code 4 OP_DEC var is .L2
+Code 5 OP_ADD .L2=20+p
+Code 6 OP_DEC var is .L4
+Code 7 OP_SET *.L2=3
+Code 8 OP_LABEL .L1
+Code 9 OP_EXIT add
+-------------------------------------

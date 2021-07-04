@@ -1,0 +1,7 @@
+int num[100];
+
+int main()
+{
+	num[2] = 10;
+    return 0;
+}

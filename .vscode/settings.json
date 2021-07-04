@@ -19,6 +19,17 @@
         "istream": "cpp",
         "cstdio": "cpp",
         "charconv": "cpp",
-        "memory": "cpp"
-    }
+        "memory": "cpp",
+        "array": "cpp",
+        "bitset": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp",
+        "valarray": "cpp",
+        "shared_mutex": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "limits": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

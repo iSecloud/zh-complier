@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+#include <stdio.h>
+#include "lex.h"
+#include "token.h"
+#include "common.h"
+#include "error.h"
+#include "parse.h"
+#include "symtab.h"
+#include "symbol.h"
+#include "genir.h"
+#define debug system("pause")
+using namespace std;
+
+int main()
+{
+    freopen("ans.txt", "w", stdout);
+    const char *fname = "test.txt";
+    Scanner sc(fname);
+    Error err(&sc);
+    Lex lexer(sc);
+    SymTab symtab;
+    GenIR ir(symtab);
+    Parser parser(lexer, symtab, ir);
+    parser.Analysis();
+    int opt = 0;
+    printf("Is it optimized? 0 NO 1 YES\n");
+    scanf("%d", &opt);
+    symtab.genOptmize();
+    symtab.genAssemble(opt);
+    return 0;
+}

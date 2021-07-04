@@ -1,0 +1,9 @@
+char *s = "HelloWorld!"
+int p = 123456789;
+
+int main()
+{
+    int a = 1, b = 2;
+    char c = s[5];
+    return a + b;
+}

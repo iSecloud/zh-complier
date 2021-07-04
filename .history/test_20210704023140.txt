@@ -1,0 +1,13 @@
+int num[100];
+
+void add(int p)
+{
+    p[5] = 3;
+}
+
+int main()
+{
+    int n = 5, k = 20;
+    add(num);
+    return n;
+}
